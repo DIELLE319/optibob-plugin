@@ -17,7 +17,15 @@ jobs:
         shell: pwsh
         run: |
           $exe = Get-ChildItem -Path build -Recurse -Filter prova-motore.exe | Select-Object -First 1
-          & $exe.FullName
+          $out = & $exe.FullName
+          Write-Host $out
+          if ($out -notmatch 'picco ([0-9.]+)\s+rms ([0-9.]+)') { Write-Error 'uscita non leggibile'; exit 1 }
+          $picco = [double]$Matches[1]; $rms = [double]$Matches[2]
+          $rifP = 0.439028; $rifR = 0.045825
+          if ([math]::Abs($picco-$rifP) -gt 0.002 -or [math]::Abs($rms-$rifR) -gt 0.0005) {
+            Write-Error "Windows DIVERSO dal Mac: picco $picco (atteso $rifP), rms $rms (atteso $rifR)"; exit 1
+          }
+          Write-Host "OK: su Windows il motore suona identico al Mac."
       - name: Raccogli Windows (VST3 + app standalone)
         uses: actions/upload-artifact@v4
         with:
