@@ -1,0 +1,36 @@
+name: build
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configura
+        run: cmake -B build -DCMAKE_BUILD_TYPE=Release
+      - name: Compila
+        run: cmake --build build --config Release --target OptiBob_VST3
+      - name: Raccogli il VST3
+        uses: actions/upload-artifact@v4
+        with:
+          name: OptiBob-Windows-VST3
+          path: build/**/OptiBob.vst3
+
+  macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configura
+        run: cmake -B build -DCMAKE_BUILD_TYPE=Release
+      - name: Compila
+        run: cmake --build build --config Release
+      - name: Raccogli AU e VST3
+        uses: actions/upload-artifact@v4
+        with:
+          name: OptiBob-macOS
+          path: |
+            build/**/OptiBob.vst3
+            build/**/OptiBob.component
