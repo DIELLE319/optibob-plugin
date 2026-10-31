@@ -28,7 +28,7 @@ juce_add_plugin(OptiBob
     COPY_PLUGIN_AFTER_BUILD FALSE
     PLUGIN_MANUFACTURER_CODE Obob
     PLUGIN_CODE             ObPl
-    FORMATS                 AU VST3
+    FORMATS                 AU VST3 Standalone
     PRODUCT_NAME            "OptiBob")
 
 

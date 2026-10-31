@@ -12,12 +12,14 @@ jobs:
       - name: Configura
         run: cmake -B build -DCMAKE_BUILD_TYPE=Release
       - name: Compila
-        run: cmake --build build --config Release --target OptiBob_VST3
+        run: cmake --build build --config Release
       - name: Raccogli il VST3
         uses: actions/upload-artifact@v4
         with:
-          name: OptiBob-Windows-VST3
-          path: build/**/OptiBob.vst3
+          name: OptiBob-Windows
+          path: |
+            build/**/OptiBob.vst3
+            build/**/OptiBob.exe
 
   macos:
     runs-on: macos-latest
@@ -34,3 +36,4 @@ jobs:
           path: |
             build/**/OptiBob.vst3
             build/**/OptiBob.component
+            build/**/OptiBob.app
