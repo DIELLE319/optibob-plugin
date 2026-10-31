@@ -4,6 +4,9 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   windows:
     runs-on: windows-latest
@@ -54,3 +57,24 @@ jobs:
             build/**/OptiBob.vst3
             build/**/OptiBob.component
             build/**/OptiBob.app
+
+  pubblica-download:
+    needs: [windows, macos]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Scarica il pacchetto Windows
+        uses: actions/download-artifact@v4
+        with:
+          name: OptiBob-Windows
+          path: win
+      - name: Fai lo zip
+        run: |
+          cd win && zip -r ../OptiBob-Windows.zip . && cd ..
+          ls -la OptiBob-Windows.zip
+      - name: Pubblica come download (link fisso)
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: windows-ultima
+          name: OptiBob per Windows (ultima build)
+          body: "App standalone + plugin VST3. Non ancora firmato: Windows mostra un avviso, Esegui comunque."
+          files: OptiBob-Windows.zip
