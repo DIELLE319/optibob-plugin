@@ -13,7 +13,12 @@ jobs:
         run: cmake -B build -DCMAKE_BUILD_TYPE=Release
       - name: Compila
         run: cmake --build build --config Release
-      - name: Raccogli il VST3
+      - name: Verifica motore (i numeri devono coincidere col Mac)
+        shell: pwsh
+        run: |
+          $exe = Get-ChildItem -Path build -Recurse -Filter prova-motore.exe | Select-Object -First 1
+          & $exe.FullName
+      - name: Raccogli Windows (VST3 + app standalone)
         uses: actions/upload-artifact@v4
         with:
           name: OptiBob-Windows
@@ -29,7 +34,11 @@ jobs:
         run: cmake -B build -DCMAKE_BUILD_TYPE=Release
       - name: Compila
         run: cmake --build build --config Release
-      - name: Raccogli AU e VST3
+      - name: Verifica motore (riferimento)
+        run: |
+          exe=$(find build -name prova-motore -type f | head -1)
+          "$exe"
+      - name: Raccogli Mac (AU + VST3 + app standalone)
         uses: actions/upload-artifact@v4
         with:
           name: OptiBob-macOS

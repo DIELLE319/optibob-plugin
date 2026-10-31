@@ -14,3 +14,7 @@ cp "$A/optibob-uno/Source/PluginProcessor.h" /tmp/pp.h
 cp "$A/optibob-agc/Engine/Eq.h" "$A/optibob-agc/Engine/Agc.h" \
    "$A/optibob-mb/Engine/Mb.h" "$A/optibob-max/Engine/Max.h" Engine/
 echo "sincronizzato dal motore di OptiBob Live."
+# 31/10 — anche il collaudo del motore: catena/applica freschi da Motore.mm
+python3 "$A/banco/estrai.py" >/dev/null 2>&1 || true
+cp "$A/banco/catena.inc" "$A/banco/applica.inc" Engine/ 2>/dev/null || true
+echo "aggiornati anche catena.inc/applica.inc per la prova."

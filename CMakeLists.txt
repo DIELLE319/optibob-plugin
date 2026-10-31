@@ -51,3 +51,9 @@ target_link_libraries(OptiBob PRIVATE
     PUBLIC
     juce::juce_recommended_config_flags
     juce::juce_recommended_warning_flags)
+
+# --- collaudo del motore (non fa parte del prodotto) -----------------------
+add_executable(prova-motore prova-motore.cpp)
+target_include_directories(prova-motore PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+target_compile_definitions(prova-motore PRIVATE _USE_MATH_DEFINES=1)
+set_target_properties(prova-motore PROPERTIES CXX_STANDARD 17 CXX_STANDARD_REQUIRED ON)
