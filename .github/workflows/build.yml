@@ -86,6 +86,5 @@ jobs:
             OptiBob-Windows-Setup.exe — OptiBob Live (app) + OptiBob Plugin (VST3)
             OptiBobPlayer.zip — OptiBob Player for Mac (free)
           files: |
-            rilascio/OptiBob-Mac.pkg
             rilascio/OptiBob-Windows-Setup.exe
             rilascio/OptiBobPlayer.zip

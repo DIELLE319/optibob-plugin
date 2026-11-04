@@ -1,4 +1,5 @@
 #include "PluginEditor.h"
+#include "Licenza.h"
 #include "BinaryData.h"
 
 #if JUCE_MAC && JucePlugin_Build_Standalone
@@ -83,6 +84,22 @@ bool UnoEditor::Pagina::pageAboutToLoad(const juce::String& url) {
 void UnoEditor::daPagina(const juce::var& o) {
     const juce::String id = o.getProperty("id", juce::var()).toString();
     if (id == "_ab") { proc.confronto.store((double) o.getProperty("v", 0.0) > 0.5); return; }
+    if (id == "_buy") {
+        juce::URL(o.getProperty("k", "").toString() == "basic"
+                    ? "https://pay.optibob.com/checkout/buy/f9f30a80-1449-4bdb-a216-9ebbd335d591"
+                    : "https://optibob.lemonsqueezy.com/checkout/buy/8b9fe0f9-c0f2-4460-adf6-698cbaca88ac").launchInDefaultBrowser();
+        return;
+    }
+    if (id == "_lic") {
+        const juce::String chiave = o.getProperty("k", "").toString();
+        juce::Thread::launch([chiave] {
+            juce::String msg; const bool ok = lic::attiva(chiave, msg);
+            const juce::ScopedLock sl(lic::esitoLock); lic::esitoMsg = msg; lic::esitoOk = ok;
+        });
+        return;
+    }
+    // Basic: le 5 bande e gli incroci sono del Pro
+    if (proc.modoLic.load() == 1 && (id.startsWith("m_gai") || id.startsWith("m_xo"))) return;
     auto* p = proc.stato.getParameter(id);
     if (p == nullptr) return;
     if (o.hasProperty("g")) {
@@ -148,6 +165,14 @@ void UnoEditor::timerCallback() {
     js << ",\"_m\":[" << juce::String(std::abs(proc.agcDb.load()), 2);
     for (int i = 0; i < 5; ++i) js << "," << juce::String(-proc.mbDb[i].load(), 2);
     js << "," << juce::String(-proc.maxDb.load(), 2) << "]";
+    {
+        static const char* nomi[] = { "ended", "basic", "pro", "trial" };
+        juce::String msg; bool ok;
+        { const juce::ScopedLock sl(lic::esitoLock); msg = lic::esitoMsg; ok = lic::esitoOk; }
+        if (giri % 30 == 0 || msg.isNotEmpty()) proc.modoLic.store((int) lic::modo());
+        js << ",\"_lic\":{\"m\":\"" << nomi[juce::jlimit(0, 3, proc.modoLic.load())] << "\",\"d\":" << lic::giorniProvaRimasti()
+           << ",\"ok\":" << (ok ? 1 : 0) << ",\"msg\":" << juce::JSON::toString(msg) << "}";
+    }
     js << ",\"_io\":[" << juce::String(proc.inDb.load(), 1) << "," << juce::String(proc.outDb.load(), 1) << "]";
    #if JUCE_MAC && JucePlugin_Build_Standalone
     if (auto* h = juce::StandalonePluginHolder::getInstance())

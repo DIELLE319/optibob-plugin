@@ -2,6 +2,7 @@
 #include <cmath>
 #include "PluginEditor.h"
 #include "PresetDiFabbrica.h"
+#include "Licenza.h"
 #if JUCE_MAC
  #include "Cattura.h"
 #endif
@@ -61,6 +62,13 @@ UnoProcessor::UnoProcessor()
       stato(*this, nullptr, "OPTIBOB", disposizione()) {
     caricaPreset(kPresetDiFabbrica);                 // parte gia' tarato, non coi valori neutri
     stato.state.setProperty("taratura", 1, nullptr);
+    lic::segnaPrimoAvvio();
+    modoLic.store((int) lic::modo());
+    static bool verificata = false;                  // una volta per avvio: chiave scaduta/revocata?
+    if (! verificata) {
+        verificata = true;
+        juce::Thread::launch([] { lic::verifica(); });   // l'editor rilegge il modo ogni 2 secondi
+    }
 }
 
 void UnoProcessor::prepareToPlay(double sr, int blocco) {
@@ -109,7 +117,7 @@ void UnoProcessor::processBlock(juce::AudioBuffer<float>& buf, juce::MidiBuffer&
         for (int i = 0; i < n; ++i) m = std::max(m, std::max(std::abs(a[i]), std::abs(b[i])));
         return m > 1.0e-6f ? 20.0f * std::log10(m) : -100.0f; };
     inDb.store(picco(L, R));
-    if (confronto.load()) {          // B: si ascolta l'originale
+    if (confronto.load() || modoLic.load() == 0) {   // B, o prova finita: si ascolta l'originale
         agcDb.store(0.0f); maxDb.store(0.0f); for (int i = 0; i < 5; ++i) mbDb[i].store(0.0f);
         outDb.store(inDb.load()); return;
     }

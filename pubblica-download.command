@@ -18,9 +18,9 @@ fi
 echo "2/3  carico su GitHub…"
 git add .github/workflows/build.yml CMakeLists.txt Engine Source/*.h Source/*.cpp Source/*.mm \
         interfaccia-pro.html interfaccia-basic.html installer-mac.command installer-windows.iss \
-        prova-desktop.command pubblica-download.command OptiBobPlayer.zip \
+        prova-desktop.command pubblica-download.command pubblica-mac.command prepara-firma.command OptiBobPlayer.zip \
         $( [ -f BlackHole2ch.driver.zip ] && echo BlackHole2ch.driver.zip )
-git commit -q -m "OptiBob Live 1.0.1: macOS prima del 14.4 con BlackHole impostato da solo" || true
+git commit -q -m "OptiBob Live 1.0.1: licenze Lemon Squeezy, prova 7 giorni, firma Developer ID" || true
 git push -q origin HEAD:main || { echo "⚠️  push non riuscito"; exit 1; }
 echo "3/3  fatto. GitHub compila (circa 15 minuti):"
 echo "     https://github.com/DIELLE319/optibob-plugin/actions"

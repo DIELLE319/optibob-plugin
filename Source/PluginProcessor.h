@@ -46,7 +46,8 @@ public:
     std::atomic<bool> vivo { true };
     // livello di picco in ingresso (prima di tutto) e in uscita, in dBFS: dice se l'audio arriva
     std::atomic<float> inDb { -100.0f }, outDb { -100.0f };
-    std::atomic<bool> confronto { false };   // A/B: true = suono originale, senza OptiBob
+    std::atomic<bool> confronto { false };
+    std::atomic<int> modoLic { 3 };                // lic::Modo — 0 prova finita (non lavora), 1 Basic, 2 Pro, 3 prova   // A/B: true = suono originale, senza OptiBob
 
 private:
     oeq::Eq   equalizzatore;

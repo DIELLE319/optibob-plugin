@@ -379,7 +379,7 @@ function drawM(m){
 function drawIO(io){ IOB.forEach((d,i)=>{ const p=clamp(((io[i]||-100)+60)/60,0,1)*100, g=Math.min(p,80);
   d.style.background='linear-gradient(90deg,#2FBF71 0 '+g+'%,'+(p>80?'#E0A24A '+g+'% '+p+'%,':'')+'rgba(255,255,255,.07) '+p+'%)'; }); }
 const INFO=[...document.querySelectorAll('span')].find(x=>/^LATENCY/.test(x.textContent.trim()));
-window.obStato=function(o){ if(o._info!==undefined){ if(INFO) INFO.textContent=o._info; delete o._info; } if(o._m){ drawM(o._m); delete o._m; } if(o._io){ drawIO(o._io); delete o._io; } for(const k in o){ if(!(drag&&drag.id===k&&/^m_(gai|xo)/.test(k))) S[k]=o[k]; } drawS(); drawB(); drawX(); drawD(); };
+window.obStato=function(o){ if(o._lic){ window.obLic&&obLic(o._lic); delete o._lic; } if(o._info!==undefined){ if(INFO) INFO.textContent=o._info; delete o._info; } if(o._m){ drawM(o._m); delete o._m; } if(o._io){ drawIO(o._io); delete o._io; } for(const k in o){ if(!(drag&&drag.id===k&&/^m_(gai|xo)/.test(k))) S[k]=o[k]; } drawS(); drawB(); drawX(); drawD(); };
 // ---- trascinamento generico
 function trascina(el,id0,su){ el.style.touchAction='none';
   el.addEventListener('pointerdown',e=>{ e.preventDefault(); const id=typeof id0==='function'?id0(e):id0; if(!id) return;
@@ -410,5 +410,47 @@ if(dv){ dv.style.cursor='ns-resize';
     bt.style.borderColor=b?'#E0A24A':'#2FBF71'; bt.style.color=b?'#E0A24A':'#2FBF71'; bt.style.minWidth='128px'; }
   bt.addEventListener('click',()=>{ b=!b; look(); send({id:'_ab',v:b?1:0},true); });
   look(); })();
+
+// ---- licenza: badge in alto a destra + pannello (prova 7 giorni, Basic, Pro)
+(function(){
+  const spans=[...document.querySelectorAll('span')];
+  const BADGE=spans.find(x=>x.textContent.trim()==='PRO'&&/margin-left:auto/.test(x.getAttribute('style')||''));
+  const TIER=[...document.querySelectorAll('div')].find(x=>x.textContent.trim()==='PRO'&&/letter-spacing:\.16em;color:#14C25A/.test(x.getAttribute('style')||''));
+  const ATT=spans.find(x=>x.textContent.trim()==='ACTIVE');
+  if(!BADGE) return;
+  BADGE.style.cursor='pointer'; BADGE.title='Licence';
+  const P=document.createElement('div');
+  P.style.cssText='position:fixed;inset:0;background:rgba(5,7,10,.72);display:none;align-items:center;justify-content:center;z-index:50';
+  P.innerHTML='<div style="width:420px;background:#11151C;border:1px solid rgba(47,191,113,.35);border-radius:12px;padding:22px 24px;font:13px/1.45 system-ui;color:#E6EBF2">'+
+   '<div style="display:flex;align-items:center;gap:8px;font:600 10px/1 ui-monospace,monospace;letter-spacing:.16em;color:#2FBF71"><span style="width:3px;height:12px;background:#2FBF71;border-radius:2px"></span>LICENCE<span id="lx" style="margin-left:auto;cursor:pointer;color:#8a93a0;font-size:14px">✕</span></div>'+
+   '<div id="ls" style="margin:14px 0 12px;font-size:14px"></div>'+
+   '<input id="lk" placeholder="Paste your licence key" spellcheck="false" style="width:100%;box-sizing:border-box;background:#0a0d12;border:1px solid rgba(255,255,255,.14);border-radius:6px;color:#E6EBF2;padding:10px;font:12px ui-monospace,monospace;-webkit-user-select:text;user-select:text">'+
+   '<div style="display:flex;gap:8px;margin-top:10px"><button id="la" style="flex:1;padding:10px;border-radius:6px;border:0;background:#2FBF71;color:#06110a;font:700 12px system-ui;cursor:pointer">Activate</button></div>'+
+   '<div id="lm" style="min-height:18px;margin-top:10px;font-size:12px;color:#E0A24A"></div>'+
+   '<div style="display:flex;gap:8px;margin-top:6px"><button data-u="basic" style="flex:1;padding:9px;border-radius:6px;border:1px solid rgba(255,255,255,.14);background:#0E1116;color:#E6EBF2;font:600 11px system-ui;cursor:pointer">Buy Basic · €30/year</button>'+
+   '<button data-u="pro" style="flex:1;padding:9px;border-radius:6px;border:1px solid rgba(47,191,113,.5);background:#0E1116;color:#2FBF71;font:600 11px system-ui;cursor:pointer">Buy Pro · €120/year</button></div></div>';
+  document.body.appendChild(P);
+  const $=id=>P.querySelector('#'+id);
+  const apri=()=>{P.style.display='flex';}, chiudi=()=>{P.style.display='none';};
+  BADGE.addEventListener('click',apri); $('lx').addEventListener('click',chiudi);
+  P.addEventListener('click',e=>{ if(e.target===P) chiudi(); });
+  $('la').addEventListener('click',()=>{ const k=$('lk').value.trim(); if(!k){ $('lm').textContent='Paste the key you received by email.'; return; }
+    $('lm').style.color='#8a93a0'; $('lm').textContent='Checking…'; send({id:'_lic',k:k},true); });
+  P.querySelectorAll('[data-u]').forEach(b=>b.addEventListener('click',()=>send({id:'_buy',k:b.dataset.u},true)));
+  let ultimo='';
+  window.obLic=function(l){
+    const t={pro:'PRO',basic:'BASIC',trial:'TRIAL · '+l.d+(l.d==1?' DAY':' DAYS'),ended:'TRIAL ENDED'}[l.m]||'PRO';
+    BADGE.textContent=t; if(TIER) TIER.textContent=(l.m==='trial'?'PRO · TRIAL':t);
+    const ok=l.m!=='ended';
+    BADGE.style.background=ok?'#2FBF71':'#E0A24A';
+    if(ATT){ ATT.lastChild.textContent=ok?'ACTIVE':'BYPASSED'; ATT.style.color=ok?'#2FBF71':'#E0A24A'; ATT.firstChild.style.background=ok?'#2FBF71':'#E0A24A'; }
+    $('ls').innerHTML={pro:'OptiLive <b>Pro</b> is active on this computer.',basic:'OptiLive <b>Basic</b> is active. The 5 bands and the crossovers need Pro.',
+      trial:'Free trial: <b>'+l.d+'</b> day'+(l.d==1?'':'s')+' left, everything unlocked.',ended:'The free trial has ended: OptiBob is not processing. Enter your licence key.'}[l.m]||'';
+    document.querySelectorAll('[data-b],#xc').forEach(el=>{ el.style.opacity=l.m==='basic'?'.45':''; el.style.pointerEvents=l.m==='basic'?'none':''; });
+    if(l.msg&&l.msg!==ultimo){ $('lm').style.color=l.ok?'#2FBF71':'#E0A24A'; $('lm').textContent=l.msg; if(l.ok) $('lk').value=''; }
+    ultimo=l.msg||'';
+    if(l.m==='ended'&&!window.__licVisto){ window.__licVisto=1; apri(); }
+  };
+})();
 })();
 </script></body></html>
