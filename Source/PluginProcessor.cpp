@@ -1,6 +1,10 @@
 #include "PluginProcessor.h"
 #include <cmath>
 #include "PluginEditor.h"
+#include "PresetDiFabbrica.h"
+#if JUCE_MAC
+ #include "Cattura.h"
+#endif
 
 namespace {
 void aggiungi(juce::AudioProcessorValueTreeState::ParameterLayout& l, const uno::Voce& v,
@@ -54,7 +58,10 @@ UnoProcessor::UnoProcessor()
     : AudioProcessor(BusesProperties()
         .withInput("In",  juce::AudioChannelSet::stereo(), true)
         .withOutput("Out", juce::AudioChannelSet::stereo(), true)),
-      stato(*this, nullptr, "OPTIBOB", disposizione()) {}
+      stato(*this, nullptr, "OPTIBOB", disposizione()) {
+    caricaPreset(kPresetDiFabbrica);                 // parte gia' tarato, non coi valori neutri
+    stato.state.setProperty("taratura", 1, nullptr);
+}
 
 void UnoProcessor::prepareToPlay(double sr, int blocco) {
     equalizzatore.prepare(sr);
@@ -93,6 +100,24 @@ void UnoProcessor::processBlock(juce::AudioBuffer<float>& buf, juce::MidiBuffer&
 
     float* L = buf.getWritePointer(0);
     float* R = buf.getNumChannels() > 1 ? buf.getWritePointer(1) : L;
+   #if JUCE_MAC
+    if (R != L) cattura_leggi(L, R, n, getSampleRate());   // OptiBob Live: l'audio del Mac al posto dell'ingresso
+   #endif
+
+    auto picco = [n](const float* a, const float* b) {
+        float m = 0.0f;
+        for (int i = 0; i < n; ++i) m = std::max(m, std::max(std::abs(a[i]), std::abs(b[i])));
+        return m > 1.0e-6f ? 20.0f * std::log10(m) : -100.0f; };
+    inDb.store(picco(L, R));
+    if (confronto.load()) {          // B: si ascolta l'originale
+        agcDb.store(0.0f); maxDb.store(0.0f); for (int i = 0; i < 5; ++i) mbDb[i].store(0.0f);
+        outDb.store(inDb.load()); return;
+    }
+    // AGC drive: quanto si spinge il segnale dentro la catena (g_pre, in dB)
+    if (const double pre = g("g_pre"); std::abs(pre) > 0.01) {
+        const float k = (float) std::pow(10.0, pre * 0.05);
+        for (int i = 0; i < n; ++i) { L[i] *= k; if (R != L) R[i] *= k; }
+    }
 
     // ---------------------------------------------------------------- AGC
     if (b("a_on")) {
@@ -101,6 +126,7 @@ void UnoProcessor::processBlock(juce::AudioBuffer<float>& buf, juce::MidiBuffer&
         p.maxUpDb = p.maxDownDb = g("a_win");
         p.gateDb = g("a_gate");  p.holdMs = g("a_hold");  p.rmsMs = g("a_det");
         p.hpfHz = g("a_cut");
+        p.anticipoMs = std::max(g("a_ant"), g("g_porta"));   // Delay: guarda avanti, non sfonda
         p.saltoDb=g("a_salto"); p.saltoMs=g("a_saltoms"); p.saltoX=g("a_saltox");
         p.frenoDb=g("a_freno"); p.frenoDbS=g("a_frenov"); p.frenoMs=g("a_frenoms", p.frenoMs);
         if (auto* sl = stato.getRawParameterValue("a_slope")) p.hpfSez = 1 + (int) sl->load();
@@ -148,6 +174,7 @@ void UnoProcessor::processBlock(juce::AudioBuffer<float>& buf, juce::MidiBuffer&
         p.unione = g("m_unione") * 0.01;
         p.accBasso=g("m_acc")*0.01; p.acc34=g("m_acc34")*0.01;
         p.pendenza=(g("m_pend") >= 36.0) ? 4 : 2;
+        p.modo = (int) std::lround(g("m_modo", 1.0)); p.spinta = g("m_spinta", 15.0); p.lega2 = g("m_lega2", 40.0) * 0.01;
         p.bloccaAlTetto = b("m_lock");
         multibanda.setParams(p);
         multibanda.process(L, R, n);
@@ -173,6 +200,8 @@ void UnoProcessor::processBlock(juce::AudioBuffer<float>& buf, juce::MidiBuffer&
         finale.process(L, R, n);
         maxDb.store((float) finale.riduzioneDb());
     } else maxDb.store(0.0f);
+
+    outDb.store(picco(L, R));
 }
 
 juce::String UnoProcessor::presetInJson() const {
@@ -208,6 +237,8 @@ void UnoProcessor::getStateInformation(juce::MemoryBlock& m) {
     if (auto x = stato.copyState().createXml()) copyXmlToBinary(*x, m);
 }
 void UnoProcessor::setStateInformation(const void* d, int n) {
-    if (auto x = getXmlFromBinary(d, n)) stato.replaceState(juce::ValueTree::fromXml(*x));
+    // i salvataggi vecchi (valori neutri, senza "taratura") si ignorano: resta la taratura di fabbrica
+    if (auto x = getXmlFromBinary(d, n))
+        if (x->getIntAttribute("taratura", 0) == 1) stato.replaceState(juce::ValueTree::fromXml(*x));
 }
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter() { return new UnoProcessor(); }

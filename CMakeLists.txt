@@ -28,6 +28,8 @@ juce_add_plugin(OptiBob
     COPY_PLUGIN_AFTER_BUILD FALSE
     PLUGIN_MANUFACTURER_CODE Obob
     PLUGIN_CODE             ObPl
+    NEEDS_WEBVIEW2          TRUE
+    PLIST_TO_MERGE          "<plist><dict><key>NSAudioCaptureUsageDescription</key><string>OptiBob processes the sound your Mac plays, in real time.</string></dict></plist>"
     FORMATS                 AU VST3 Standalone
     PRODUCT_NAME            "OptiBob")
 
@@ -36,11 +38,20 @@ target_sources(OptiBob PRIVATE
     Source/PluginProcessor.cpp
     Source/PluginEditor.cpp)
 
+juce_add_binary_data(OptiBobUI SOURCES
+    ${CMAKE_CURRENT_SOURCE_DIR}/interfaccia-basic.html
+    ${CMAKE_CURRENT_SOURCE_DIR}/interfaccia-pro.html)
+
 target_include_directories(OptiBob PRIVATE Source Engine)
+
+if(APPLE)
+    target_sources(OptiBob PRIVATE Source/Cattura.mm)
+endif()
 
 target_compile_definitions(OptiBob PUBLIC
     _USE_MATH_DEFINES=1
-    JUCE_WEB_BROWSER=0
+    JUCE_WEB_BROWSER=1
+    JUCE_USE_WIN_WEBVIEW2_WITH_STATIC_LINKING=1
     JUCE_USE_CURL=0
     JUCE_VST3_CAN_REPLACE_VST2=0
     JUCE_DISPLAY_SPLASH_SCREEN=0
@@ -48,6 +59,8 @@ target_compile_definitions(OptiBob PUBLIC
 
 target_link_libraries(OptiBob PRIVATE
     juce::juce_audio_utils
+    juce::juce_gui_extra
+    OptiBobUI
     PUBLIC
     juce::juce_recommended_config_flags
     juce::juce_recommended_warning_flags)

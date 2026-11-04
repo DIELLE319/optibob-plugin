@@ -1,0 +1,414 @@
+<!doctype html><html><head><meta charset="utf-8">
+<style>
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+</style>
+<style>html,body{margin:0;background:#0E1116;overflow:hidden;user-select:none;-webkit-user-select:none}</style></head><body>
+<div style="width:100vw;min-height:100vh;box-sizing:border-box;background:#0E1116;overflow:hidden;display:flex;flex-direction:column;color:#E6EBF2">
+
+  <!-- title bar -->
+  <div style="height:46px;flex:none;display:flex;align-items:center;gap:12px;padding:0 16px;background:#0A0D12;border-bottom:1px solid rgba(255,255,255,.07)">
+    <div style="display:flex;gap:8px"><span style="width:11px;height:11px;border-radius:50%;background:#ff5f57"></span><span style="width:11px;height:11px;border-radius:50%;background:#febc2e"></span><span style="width:11px;height:11px;border-radius:50%;background:#28c840"></span></div>
+    <div style="display:flex;align-items:baseline;gap:9px;margin-left:6px"><b style="font-size:15px;letter-spacing:-.01em">OptiBob</b><span style="font:600 10px/1 ui-monospace,monospace;letter-spacing:.14em;color:#6f757e">OPTILIVE</span></div>
+    <span style="display:inline-flex;align-items:center;gap:6px;margin-left:4px;font:600 10px/1 ui-monospace,monospace;letter-spacing:.1em;color:#2FBF71"><span style="width:7px;height:7px;border-radius:50%;background:#2FBF71"></span>ACTIVE</span>
+    <span style="margin-left:auto;font:700 10px/1 ui-monospace,monospace;letter-spacing:.14em;color:#2a1e00;background:#2FBF71;padding:6px 10px;border-radius:4px">PRO</span>
+  </div>
+
+  <!-- toolbar -->
+  <div style="flex:none;display:flex;align-items:center;gap:14px;padding:12px 16px;background:#11151C;border-bottom:1px solid rgba(255,255,255,.07)">
+    <span style="font:600 10px/1 ui-monospace,monospace;letter-spacing:.14em;color:#6f757e">IN</span>
+    <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid rgba(255,255,255,.12);border-radius:6px;background:#0E1116;font-size:13px;color:#c7cdd6">Line In · USB<span style="color:#6f757e">▾</span></div>
+    <span style="color:#4a515b;font-size:16px">→</span>
+    <span style="font:600 10px/1 ui-monospace,monospace;letter-spacing:.14em;color:#6f757e">OUT</span>
+    <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid rgba(255,255,255,.12);border-radius:6px;background:#0E1116;font-size:13px;color:#c7cdd6">To encoder<span style="color:#6f757e">▾</span></div>
+    <div style="margin-left:auto;display:flex;gap:6px;align-items:center">
+      <span style="font:600 10px/1 ui-monospace,monospace;letter-spacing:.12em;color:#6f757e;margin-right:4px">PRESET</span>
+      <button style="font:600 12px/1 ui-monospace,monospace;padding:9px 13px;border-radius:6px;border:1px solid rgba(255,255,255,.12);background:#0E1116;color:#c7cdd6;cursor:pointer">Soft</button>
+      <button style="font:600 12px/1 ui-monospace,monospace;padding:9px 13px;border-radius:6px;border:1px solid #2FBF71;background:rgba(47,191,113,.14);color:#2FBF71;cursor:pointer">My station</button>
+      <span style="width:1px;height:26px;background:rgba(255,255,255,.1);margin:0 6px"></span>
+      <button style="font:700 11px/1 ui-monospace,monospace;letter-spacing:.1em;padding:9px 13px;border-radius:6px;border:1px solid rgba(255,255,255,.14);background:#0E1116;color:#E6EBF2;cursor:pointer">A / B</button>
+    </div>
+  </div>
+
+  <!-- body -->
+  <div style="flex:1;min-height:0;display:flex;flex-direction:column;gap:12px;padding:14px 16px">
+
+    <!-- rack -->
+    <div style="flex:none;display:flex;align-items:center;gap:20px;padding:14px 22px;background:linear-gradient(#1a1e24,#111419);border:1px solid #2a3139;border-radius:10px">
+      <div style="flex:none;width:190px">
+        <div style="font:800 22px/1 system-ui;letter-spacing:.02em;color:#E8E6E1">OPTIBOB</div>
+        <div style="font:600 8px/1 ui-monospace,monospace;letter-spacing:.26em;color:#7d838c;margin-top:6px">PROGRAM PROCESSOR</div><div style="font:700 9px/1 ui-monospace,monospace;letter-spacing:.16em;color:#14C25A;margin-top:9px">PRO</div>
+      </div>
+      <div style="flex:1;min-width:0">
+        <div style="font:600 8px/1 ui-monospace,monospace;letter-spacing:.24em;color:#6f757e;margin-bottom:8px">GAIN REDUCTION</div>
+        <div style="display:flex;gap:16px;height:72px">
+          <div style="flex:1;border-radius:3px;background:repeating-linear-gradient(to bottom,transparent 0 8px,#0b0e13 8px 11px),linear-gradient(to bottom,#2FBF71 0 42%,rgba(47,191,113,.10) 42%)"></div>
+          <div style="flex:1;border-radius:3px;background:repeating-linear-gradient(to bottom,transparent 0 8px,#0b0e13 8px 11px),linear-gradient(to bottom,#38BDF8 0 26%,rgba(56,189,248,.10) 26%)"></div>
+          <div style="flex:1;border-radius:3px;background:repeating-linear-gradient(to bottom,transparent 0 8px,#0b0e13 8px 11px),linear-gradient(to bottom,#4F7BFF 0 34%,rgba(79,123,255,.10) 34%)"></div>
+          <div style="flex:1;border-radius:3px;background:repeating-linear-gradient(to bottom,transparent 0 8px,#0b0e13 8px 11px),linear-gradient(to bottom,#9B6BF2 0 30%,rgba(155,107,242,.10) 30%)"></div>
+          <div style="flex:1;border-radius:3px;background:repeating-linear-gradient(to bottom,transparent 0 8px,#0b0e13 8px 11px),linear-gradient(to bottom,#E0A24A 0 56%,rgba(224,162,74,.10) 56%)"></div>
+          <div style="flex:1;border-radius:3px;background:repeating-linear-gradient(to bottom,transparent 0 8px,#0b0e13 8px 11px),linear-gradient(to bottom,#E8713C 0 48%,rgba(232,113,60,.10) 48%)"></div>
+        </div>
+      </div>
+      <div style="flex:none;display:flex;flex-direction:column;align-items:center;gap:8px">
+        <div id="drv" style="position:relative;width:54px;height:54px;border-radius:50%;background:radial-gradient(circle at 50% 35%,#4a5058,#23272d 72%);border:1px solid #4c535c">
+          <div id="drvn" style="position:absolute;left:50%;top:6px;width:2px;height:15px;margin-left:-1px;background:#41A6F5;border-radius:1px;transform-origin:50% 21px;transform:rotate(18deg)"></div>
+        </div>
+        <div style="font:600 8px/1 ui-monospace,monospace;letter-spacing:.2em;color:#6f757e">DRIVE</div>
+      </div>
+    </div>
+
+    <!-- strip: livellatore · quanto schiaccia · banco -->
+    <div style="flex:none;display:flex;flex-direction:column;background:#11151C;border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:12px 18px">
+      <div style="height:148px;display:flex;gap:16px;align-items:stretch">
+
+        <div style="display:flex;flex-direction:column;gap:9px;padding-right:16px;border-right:1px solid rgba(255,255,255,.08)">
+          <div style="display:flex;gap:6px;align-items:center;font:600 9px/1 ui-monospace,monospace;letter-spacing:.16em;color:#2FBF71"><span style="width:3px;height:12px;background:#2FBF71;border-radius:2px"></span>LEVELLER</div>
+          <div style="flex:1;display:flex;gap:2px">
+            
+              <div data-p="g_pre" style="display:flex;flex-direction:column;align-items:center;gap:6px;width:92px">
+                <div class="v" style="font:700 10px/1 ui-monospace,monospace;color:#2FBF71">14.5 dB</div>
+                <div class="t" style="position:relative;flex:1;min-height:56px;width:32px;display:flex;justify-content:center">
+                  <div style="width:8px;height:100%;border-radius:4px;background:linear-gradient(#05070d,#0c0f15);box-shadow:inset 0 0 0 1px rgba(255,255,255,.05),inset 0 2px 5px rgba(0,0,0,.7);position:relative;overflow:hidden"><div class="fill" style="position:absolute;left:0;right:0;bottom:0;height:70%;background:linear-gradient(#34d07e,#1f9a57)"></div></div>
+                  <div class="thumb" style="position:absolute;left:50%;bottom:70%;transform:translate(-50%,50%);width:30px;height:15px;border-radius:3px;background:linear-gradient(#4a515b,#20252c);border:1px solid #0e1216;box-shadow:0 2px 5px rgba(0,0,0,.6)"><div style="position:absolute;left:4px;right:4px;top:50%;height:2px;margin-top:-1px;background:#9aa2ad;border-radius:1px"></div></div>
+                </div>
+                <div style="font:700 9px/1.2 ui-monospace,monospace;color:#c7cdd6;text-align:center">AGC drive</div>
+                <div style="font:400 8px/1.35 ui-monospace,monospace;color:#737b86;text-align:center;min-height:22px">gain reduction 10–15 dB</div>
+              </div>
+            
+              <div data-p="a_up" style="display:flex;flex-direction:column;align-items:center;gap:6px;width:92px">
+                <div class="v" style="font:700 10px/1 ui-monospace,monospace;color:#2FBF71">7.0</div>
+                <div class="t" style="position:relative;flex:1;min-height:56px;width:32px;display:flex;justify-content:center">
+                  <div style="width:8px;height:100%;border-radius:4px;background:linear-gradient(#05070d,#0c0f15);box-shadow:inset 0 0 0 1px rgba(255,255,255,.05),inset 0 2px 5px rgba(0,0,0,.7);position:relative;overflow:hidden"><div class="fill" style="position:absolute;left:0;right:0;bottom:0;height:40%;background:linear-gradient(#34d07e,#1f9a57)"></div></div>
+                  <div class="thumb" style="position:absolute;left:50%;bottom:40%;transform:translate(-50%,50%);width:30px;height:15px;border-radius:3px;background:linear-gradient(#4a515b,#20252c);border:1px solid #0e1216;box-shadow:0 2px 5px rgba(0,0,0,.6)"><div style="position:absolute;left:4px;right:4px;top:50%;height:2px;margin-top:-1px;background:#9aa2ad;border-radius:1px"></div></div>
+                </div>
+                <div style="font:700 9px/1.2 ui-monospace,monospace;color:#c7cdd6;text-align:center">AGC release</div>
+                <div style="font:400 8px/1.35 ui-monospace,monospace;color:#737b86;text-align:center;min-height:22px">0.5–20 · 7 for a lively sound</div>
+              </div>
+            
+              <div data-p="g_porta" style="display:flex;flex-direction:column;align-items:center;gap:6px;width:92px">
+                <div class="v" style="font:700 10px/1 ui-monospace,monospace;color:#2FBF71">200 ms</div>
+                <div class="t" style="position:relative;flex:1;min-height:56px;width:32px;display:flex;justify-content:center">
+                  <div style="width:8px;height:100%;border-radius:4px;background:linear-gradient(#05070d,#0c0f15);box-shadow:inset 0 0 0 1px rgba(255,255,255,.05),inset 0 2px 5px rgba(0,0,0,.7);position:relative;overflow:hidden"><div class="fill" style="position:absolute;left:0;right:0;bottom:0;height:22%;background:linear-gradient(#34d07e,#1f9a57)"></div></div>
+                  <div class="thumb" style="position:absolute;left:50%;bottom:22%;transform:translate(-50%,50%);width:30px;height:15px;border-radius:3px;background:linear-gradient(#4a515b,#20252c);border:1px solid #0e1216;box-shadow:0 2px 5px rgba(0,0,0,.6)"><div style="position:absolute;left:4px;right:4px;top:50%;height:2px;margin-top:-1px;background:#9aa2ad;border-radius:1px"></div></div>
+                </div>
+                <div style="font:700 9px/1.2 ui-monospace,monospace;color:#c7cdd6;text-align:center">Delay</div>
+                <div style="font:400 8px/1.35 ui-monospace,monospace;color:#737b86;text-align:center;min-height:22px">look-ahead · never overshoots</div>
+              </div>
+            
+          </div>
+        </div>
+
+        <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:9px">
+          <div style="display:flex;gap:6px;align-items:center;font:600 9px/1 ui-monospace,monospace;letter-spacing:.16em;color:#2FBF71"><span style="width:3px;height:12px;background:#2FBF71;border-radius:2px"></span>HOW MUCH IT SQUASHES</div>
+          <div style="flex:1;display:flex;gap:7px">
+            
+              <div data-m="0" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px">
+                <div style="flex:1;width:100%;border-radius:4px;background:#0a0d12;border:1px solid rgba(255,255,255,.06);position:relative;overflow:hidden">
+                  <div class="mf" style="position:absolute;left:0;right:0;top:0;height:20%;background:linear-gradient(rgba(224,162,74,.16),rgba(224,162,74,.03))"></div>
+                  <div class="ml" style="position:absolute;left:3px;right:3px;top:20%;height:3px;margin-top:-1px;background:#E0A24A;border-radius:2px;box-shadow:0 0 6px rgba(224,162,74,.6)"></div>
+                </div>
+                <div style="font:600 8px/1 ui-monospace,monospace;color:#6f757e">AGC</div>
+              </div>
+            
+              <div data-m="1" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px">
+                <div style="flex:1;width:100%;border-radius:4px;background:#0a0d12;border:1px solid rgba(255,255,255,.06);position:relative;overflow:hidden">
+                  <div class="mf" style="position:absolute;left:0;right:0;top:0;height:32%;background:linear-gradient(rgba(224,162,74,.16),rgba(224,162,74,.03))"></div>
+                  <div class="ml" style="position:absolute;left:3px;right:3px;top:32%;height:3px;margin-top:-1px;background:#E0A24A;border-radius:2px;box-shadow:0 0 6px rgba(224,162,74,.6)"></div>
+                </div>
+                <div style="font:600 8px/1 ui-monospace,monospace;color:#6f757e">1</div>
+              </div>
+            
+              <div data-m="2" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px">
+                <div style="flex:1;width:100%;border-radius:4px;background:#0a0d12;border:1px solid rgba(255,255,255,.06);position:relative;overflow:hidden">
+                  <div class="mf" style="position:absolute;left:0;right:0;top:0;height:44%;background:linear-gradient(rgba(224,162,74,.16),rgba(224,162,74,.03))"></div>
+                  <div class="ml" style="position:absolute;left:3px;right:3px;top:44%;height:3px;margin-top:-1px;background:#E0A24A;border-radius:2px;box-shadow:0 0 6px rgba(224,162,74,.6)"></div>
+                </div>
+                <div style="font:600 8px/1 ui-monospace,monospace;color:#6f757e">2</div>
+              </div>
+            
+              <div data-m="3" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px">
+                <div style="flex:1;width:100%;border-radius:4px;background:#0a0d12;border:1px solid rgba(255,255,255,.06);position:relative;overflow:hidden">
+                  <div class="mf" style="position:absolute;left:0;right:0;top:0;height:26%;background:linear-gradient(rgba(224,162,74,.16),rgba(224,162,74,.03))"></div>
+                  <div class="ml" style="position:absolute;left:3px;right:3px;top:26%;height:3px;margin-top:-1px;background:#E0A24A;border-radius:2px;box-shadow:0 0 6px rgba(224,162,74,.6)"></div>
+                </div>
+                <div style="font:600 8px/1 ui-monospace,monospace;color:#6f757e">3</div>
+              </div>
+            
+              <div data-m="4" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px">
+                <div style="flex:1;width:100%;border-radius:4px;background:#0a0d12;border:1px solid rgba(255,255,255,.06);position:relative;overflow:hidden">
+                  <div class="mf" style="position:absolute;left:0;right:0;top:0;height:50%;background:linear-gradient(rgba(224,162,74,.16),rgba(224,162,74,.03))"></div>
+                  <div class="ml" style="position:absolute;left:3px;right:3px;top:50%;height:3px;margin-top:-1px;background:#E0A24A;border-radius:2px;box-shadow:0 0 6px rgba(224,162,74,.6)"></div>
+                </div>
+                <div style="font:600 8px/1 ui-monospace,monospace;color:#6f757e">4</div>
+              </div>
+            
+              <div data-m="5" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px">
+                <div style="flex:1;width:100%;border-radius:4px;background:#0a0d12;border:1px solid rgba(255,255,255,.06);position:relative;overflow:hidden">
+                  <div class="mf" style="position:absolute;left:0;right:0;top:0;height:38%;background:linear-gradient(rgba(224,162,74,.16),rgba(224,162,74,.03))"></div>
+                  <div class="ml" style="position:absolute;left:3px;right:3px;top:38%;height:3px;margin-top:-1px;background:#E0A24A;border-radius:2px;box-shadow:0 0 6px rgba(224,162,74,.6)"></div>
+                </div>
+                <div style="font:600 8px/1 ui-monospace,monospace;color:#6f757e">5</div>
+              </div>
+            
+              <div data-m="6" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px">
+                <div style="flex:1;width:100%;border-radius:4px;background:#0a0d12;border:1px solid rgba(255,255,255,.06);position:relative;overflow:hidden">
+                  <div class="mf" style="position:absolute;left:0;right:0;top:0;height:12%;background:linear-gradient(rgba(224,162,74,.16),rgba(224,162,74,.03))"></div>
+                  <div class="ml" style="position:absolute;left:3px;right:3px;top:12%;height:3px;margin-top:-1px;background:#E0A24A;border-radius:2px;box-shadow:0 0 6px rgba(224,162,74,.6)"></div>
+                </div>
+                <div style="font:600 8px/1 ui-monospace,monospace;color:#6f757e">CLIP</div>
+              </div>
+            
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:9px;padding-left:16px;border-left:1px solid rgba(255,255,255,.08)">
+          <div style="display:flex;gap:6px;align-items:center;font:600 9px/1 ui-monospace,monospace;letter-spacing:.16em;color:#2FBF71"><span style="width:3px;height:12px;background:#2FBF71;border-radius:2px"></span>BANK</div>
+          <div style="flex:1;display:flex;gap:2px">
+            
+              <div data-p="m_giumax" style="display:flex;flex-direction:column;align-items:center;gap:6px;width:92px">
+                <div class="v" style="font:700 10px/1 ui-monospace,monospace;color:#2FBF71">2.0</div>
+                <div class="t" style="position:relative;flex:1;min-height:56px;width:32px;display:flex;justify-content:center">
+                  <div style="width:8px;height:100%;border-radius:4px;background:linear-gradient(#05070d,#0c0f15);box-shadow:inset 0 0 0 1px rgba(255,255,255,.05),inset 0 2px 5px rgba(0,0,0,.7);position:relative;overflow:hidden"><div class="fill" style="position:absolute;left:0;right:0;bottom:0;height:26%;background:linear-gradient(#34d07e,#1f9a57)"></div></div>
+                  <div class="thumb" style="position:absolute;left:50%;bottom:26%;transform:translate(-50%,50%);width:30px;height:15px;border-radius:3px;background:linear-gradient(#4a515b,#20252c);border:1px solid #0e1216;box-shadow:0 2px 5px rgba(0,0,0,.6)"><div style="position:absolute;left:4px;right:4px;top:50%;height:2px;margin-top:-1px;background:#9aa2ad;border-radius:1px"></div></div>
+                </div>
+                <div style="font:700 9px/1.2 ui-monospace,monospace;color:#c7cdd6;text-align:center">Squash</div>
+                <div style="font:400 8px/1.35 ui-monospace,monospace;color:#737b86;text-align:center;min-height:22px">0 = flat tuning · each notch squashes more</div>
+              </div>
+            
+              <div data-p="m_spinta" style="display:flex;flex-direction:column;align-items:center;gap:6px;width:92px">
+                <div class="v" style="font:700 10px/1 ui-monospace,monospace;color:#2FBF71">14.0</div>
+                <div class="t" style="position:relative;flex:1;min-height:56px;width:32px;display:flex;justify-content:center">
+                  <div style="width:8px;height:100%;border-radius:4px;background:linear-gradient(#05070d,#0c0f15);box-shadow:inset 0 0 0 1px rgba(255,255,255,.05),inset 0 2px 5px rgba(0,0,0,.7);position:relative;overflow:hidden"><div class="fill" style="position:absolute;left:0;right:0;bottom:0;height:68%;background:linear-gradient(#34d07e,#1f9a57)"></div></div>
+                  <div class="thumb" style="position:absolute;left:50%;bottom:68%;transform:translate(-50%,50%);width:30px;height:15px;border-radius:3px;background:linear-gradient(#4a515b,#20252c);border:1px solid #0e1216;box-shadow:0 2px 5px rgba(0,0,0,.6)"><div style="position:absolute;left:4px;right:4px;top:50%;height:2px;margin-top:-1px;background:#9aa2ad;border-radius:1px"></div></div>
+                </div>
+                <div style="font:700 9px/1.2 ui-monospace,monospace;color:#c7cdd6;text-align:center">MB drive</div>
+                <div style="font:400 8px/1.35 ui-monospace,monospace;color:#737b86;text-align:center;min-height:22px">14–15 · band 3 between −10 and −15</div>
+              </div>
+            
+              <div data-p="m_indbs" style="display:flex;flex-direction:column;align-items:center;gap:6px;width:92px">
+                <div class="v" style="font:700 10px/1 ui-monospace,monospace;color:#2FBF71">4.0</div>
+                <div class="t" style="position:relative;flex:1;min-height:56px;width:32px;display:flex;justify-content:center">
+                  <div style="width:8px;height:100%;border-radius:4px;background:linear-gradient(#05070d,#0c0f15);box-shadow:inset 0 0 0 1px rgba(255,255,255,.05),inset 0 2px 5px rgba(0,0,0,.7);position:relative;overflow:hidden"><div class="fill" style="position:absolute;left:0;right:0;bottom:0;height:46%;background:linear-gradient(#34d07e,#1f9a57)"></div></div>
+                  <div class="thumb" style="position:absolute;left:50%;bottom:46%;transform:translate(-50%,50%);width:30px;height:15px;border-radius:3px;background:linear-gradient(#4a515b,#20252c);border:1px solid #0e1216;box-shadow:0 2px 5px rgba(0,0,0,.6)"><div style="position:absolute;left:4px;right:4px;top:50%;height:2px;margin-top:-1px;background:#9aa2ad;border-radius:1px"></div></div>
+                </div>
+                <div style="font:700 9px/1.2 ui-monospace,monospace;color:#c7cdd6;text-align:center">MB release</div>
+                <div style="font:400 8px/1.35 ui-monospace,monospace;color:#737b86;text-align:center;min-height:22px">medium-fast · above 9 hurts dynamics</div>
+              </div>
+            
+              <div data-p="m_unione" style="display:flex;flex-direction:column;align-items:center;gap:6px;width:92px">
+                <div class="v" style="font:700 10px/1 ui-monospace,monospace;color:#2FBF71">5.2</div>
+                <div class="t" style="position:relative;flex:1;min-height:56px;width:32px;display:flex;justify-content:center">
+                  <div style="width:8px;height:100%;border-radius:4px;background:linear-gradient(#05070d,#0c0f15);box-shadow:inset 0 0 0 1px rgba(255,255,255,.05),inset 0 2px 5px rgba(0,0,0,.7);position:relative;overflow:hidden"><div class="fill" style="position:absolute;left:0;right:0;bottom:0;height:55%;background:linear-gradient(#34d07e,#1f9a57)"></div></div>
+                  <div class="thumb" style="position:absolute;left:50%;bottom:55%;transform:translate(-50%,50%);width:30px;height:15px;border-radius:3px;background:linear-gradient(#4a515b,#20252c);border:1px solid #0e1216;box-shadow:0 2px 5px rgba(0,0,0,.6)"><div style="position:absolute;left:4px;right:4px;top:50%;height:2px;margin-top:-1px;background:#9aa2ad;border-radius:1px"></div></div>
+                </div>
+                <div style="font:700 9px/1.2 ui-monospace,monospace;color:#c7cdd6;text-align:center">Bonding</div>
+                <div style="font:400 8px/1.35 ui-monospace,monospace;color:#737b86;text-align:center;min-height:22px">5–8 · at 0 the bands split apart</div>
+              </div>
+            
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- bande -->
+    <div style="flex:none;display:flex;flex-direction:column;background:#11151C;border:1px solid rgba(47,191,113,.28);border-radius:10px;padding:12px 18px">
+      <div style="display:flex;gap:6px;align-items:center;font:600 9px/1 ui-monospace,monospace;letter-spacing:.16em;color:#2FBF71;margin-bottom:10px"><span style="width:3px;height:12px;background:#2FBF71;border-radius:2px"></span>THE 5 BANDS<span style="margin-left:auto;color:#6f757e;letter-spacing:.04em;font-weight:400">one by one</span></div>
+      <div style="display:flex;gap:10px">
+        
+          <div data-b="1" style="flex:1;min-width:0;background:#0E1116;border:1px solid rgba(255,255,255,.08);border-top:2px solid #2FBF71;border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:9px">
+            <div style="display:flex;align-items:baseline;justify-content:space-between"><span style="font:700 12px/1 ui-monospace,monospace;letter-spacing:.06em;color:#2FBF71">B1</span><span class="hz" style="font:600 9px/1 ui-monospace,monospace;color:#6f757e">20–100 Hz</span></div>
+            <div class="bv" style="font:700 22px/1 system-ui;letter-spacing:-.01em;color:#E6EBF2">+1.8 dB</div>
+            <div class="bt" style="position:relative;height:8px;border-radius:4px;background:#0a0d12;box-shadow:inset 0 1px 3px rgba(0,0,0,.6)">
+              <div style="position:absolute;left:50%;top:-3px;bottom:-3px;width:1px;background:rgba(255,255,255,.22)"></div>
+              <div class="bf" style="position:absolute;top:0;bottom:0;left:50%;width:15%;background:#2FBF71;border-radius:4px"></div>
+            </div>
+            <div style="font:400 9px/1.35 ui-monospace,monospace;color:#737b86">the lows</div>
+          </div>
+        
+          <div data-b="2" style="flex:1;min-width:0;background:#0E1116;border:1px solid rgba(255,255,255,.08);border-top:2px solid #38BDF8;border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:9px">
+            <div style="display:flex;align-items:baseline;justify-content:space-between"><span style="font:700 12px/1 ui-monospace,monospace;letter-spacing:.06em;color:#38BDF8">B2</span><span class="hz" style="font:600 9px/1 ui-monospace,monospace;color:#6f757e">100–250 Hz</span></div>
+            <div class="bv" style="font:700 22px/1 system-ui;letter-spacing:-.01em;color:#E6EBF2">+0.4 dB</div>
+            <div class="bt" style="position:relative;height:8px;border-radius:4px;background:#0a0d12;box-shadow:inset 0 1px 3px rgba(0,0,0,.6)">
+              <div style="position:absolute;left:50%;top:-3px;bottom:-3px;width:1px;background:rgba(255,255,255,.22)"></div>
+              <div class="bf" style="position:absolute;top:0;bottom:0;left:50%;width:4%;background:#38BDF8;border-radius:4px"></div>
+            </div>
+            <div style="font:400 9px/1.35 ui-monospace,monospace;color:#737b86">the body</div>
+          </div>
+        
+          <div data-b="3" style="flex:1;min-width:0;background:#0E1116;border:1px solid rgba(255,255,255,.08);border-top:2px solid #4F7BFF;border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:9px">
+            <div style="display:flex;align-items:baseline;justify-content:space-between"><span style="font:700 12px/1 ui-monospace,monospace;letter-spacing:.06em;color:#4F7BFF">B3</span><span class="hz" style="font:600 9px/1 ui-monospace,monospace;color:#6f757e">250–600 Hz</span></div>
+            <div class="bv" style="font:700 22px/1 system-ui;letter-spacing:-.01em;color:#E6EBF2">−1.2 dB</div>
+            <div class="bt" style="position:relative;height:8px;border-radius:4px;background:#0a0d12;box-shadow:inset 0 1px 3px rgba(0,0,0,.6)">
+              <div style="position:absolute;left:50%;top:-3px;bottom:-3px;width:1px;background:rgba(255,255,255,.22)"></div>
+              <div class="bf" style="position:absolute;top:0;bottom:0;left:40%;width:10%;background:#4F7BFF;border-radius:4px"></div>
+            </div>
+            <div style="font:400 9px/1.35 ui-monospace,monospace;color:#737b86">the voice</div>
+          </div>
+        
+          <div data-b="4" style="flex:1;min-width:0;background:#0E1116;border:1px solid rgba(255,255,255,.08);border-top:2px solid #9B6BF2;border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:9px">
+            <div style="display:flex;align-items:baseline;justify-content:space-between"><span style="font:700 12px/1 ui-monospace,monospace;letter-spacing:.06em;color:#9B6BF2">B4</span><span class="hz" style="font:600 9px/1 ui-monospace,monospace;color:#6f757e">600 Hz–1k5</span></div>
+            <div class="bv" style="font:700 22px/1 system-ui;letter-spacing:-.01em;color:#E6EBF2">+0.6 dB</div>
+            <div class="bt" style="position:relative;height:8px;border-radius:4px;background:#0a0d12;box-shadow:inset 0 1px 3px rgba(0,0,0,.6)">
+              <div style="position:absolute;left:50%;top:-3px;bottom:-3px;width:1px;background:rgba(255,255,255,.22)"></div>
+              <div class="bf" style="position:absolute;top:0;bottom:0;left:50%;width:5%;background:#9B6BF2;border-radius:4px"></div>
+            </div>
+            <div style="font:400 9px/1.35 ui-monospace,monospace;color:#737b86">the presence</div>
+          </div>
+        
+          <div data-b="5" style="flex:1;min-width:0;background:#0E1116;border:1px solid rgba(255,255,255,.08);border-top:2px solid #E0A24A;border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:9px">
+            <div style="display:flex;align-items:baseline;justify-content:space-between"><span style="font:700 12px/1 ui-monospace,monospace;letter-spacing:.06em;color:#E0A24A">B5</span><span class="hz" style="font:600 9px/1 ui-monospace,monospace;color:#6f757e">1k5–15k</span></div>
+            <div class="bv" style="font:700 22px/1 system-ui;letter-spacing:-.01em;color:#E6EBF2">−0.5 dB</div>
+            <div class="bt" style="position:relative;height:8px;border-radius:4px;background:#0a0d12;box-shadow:inset 0 1px 3px rgba(0,0,0,.6)">
+              <div style="position:absolute;left:50%;top:-3px;bottom:-3px;width:1px;background:rgba(255,255,255,.22)"></div>
+              <div class="bf" style="position:absolute;top:0;bottom:0;left:46%;width:4%;background:#E0A24A;border-radius:4px"></div>
+            </div>
+            <div style="font:400 9px/1.35 ui-monospace,monospace;color:#737b86">the air</div>
+          </div>
+        
+      </div>
+    </div>
+
+    <!-- incroci -->
+    <div style="flex:none;display:flex;flex-direction:column;background:#11151C;border:1px solid rgba(47,191,113,.28);border-radius:10px;padding:12px 18px 10px">
+      <div style="display:flex;gap:6px;align-items:center;font:600 9px/1 ui-monospace,monospace;letter-spacing:.16em;color:#2FBF71;margin-bottom:6px"><span style="width:3px;height:12px;background:#2FBF71;border-radius:2px"></span>THE CROSSOVERS<span style="margin-left:auto;color:#6f757e;letter-spacing:.04em;font-weight:400">drag them with the mouse</span></div>
+      <div id="xc" style="height:150px;position:relative">
+        <svg id="xs" viewBox="0 0 1000 150" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%;display:block" role="img" aria-label="Crossover curves between the five bands, with four draggable split points">
+          <path d="M-120 150 Q 90 -10 300 150 Z" fill="rgba(79,123,255,.18)" stroke="#4F7BFF" stroke-width="2.5"/>
+          <path d="M140 150 Q 320 -8 500 150 Z" fill="rgba(47,191,113,.18)" stroke="#2FBF71" stroke-width="2.5"/>
+          <path d="M360 150 Q 540 -8 720 150 Z" fill="rgba(224,162,74,.18)" stroke="#E0A24A" stroke-width="2.5"/>
+          <path d="M560 150 Q 740 -8 920 150 Z" fill="rgba(232,113,60,.18)" stroke="#E8713C" stroke-width="2.5"/>
+          <path d="M760 150 Q 940 -6 1120 150 Z" fill="rgba(239,68,68,.15)" stroke="#EF4444" stroke-width="2.5"/>
+        </svg>
+        <div id="xm" style="position:absolute;inset:0;pointer-events:none">
+          
+            <div style="position:absolute;top:0;bottom:0;left:22%;border-left:1px dashed rgba(255,255,255,.3)"></div>
+            <div style="position:absolute;top:50%;left:22%;transform:translate(-50%,-50%);width:14px;height:14px;border-radius:50%;background:#e9edf3;border:2px solid #2FBF71;box-shadow:0 2px 6px rgba(0,0,0,.6)"></div>
+            <span style="position:absolute;top:6px;left:22%;transform:translateX(-50%);font:600 9px/1 ui-monospace,monospace;color:#c7cdd6;background:rgba(10,13,18,.82);padding:4px 7px;border-radius:3px">94 Hz</span>
+          
+            <div style="position:absolute;top:0;bottom:0;left:45%;border-left:1px dashed rgba(255,255,255,.3)"></div>
+            <div style="position:absolute;top:50%;left:45%;transform:translate(-50%,-50%);width:14px;height:14px;border-radius:50%;background:#e9edf3;border:2px solid #2FBF71;box-shadow:0 2px 6px rgba(0,0,0,.6)"></div>
+            <span style="position:absolute;top:6px;left:45%;transform:translateX(-50%);font:600 9px/1 ui-monospace,monospace;color:#c7cdd6;background:rgba(10,13,18,.82);padding:4px 7px;border-radius:3px">554 Hz</span>
+          
+            <div style="position:absolute;top:0;bottom:0;left:64%;border-left:1px dashed rgba(255,255,255,.3)"></div>
+            <div style="position:absolute;top:50%;left:64%;transform:translate(-50%,-50%);width:14px;height:14px;border-radius:50%;background:#e9edf3;border:2px solid #2FBF71;box-shadow:0 2px 6px rgba(0,0,0,.6)"></div>
+            <span style="position:absolute;top:6px;left:64%;transform:translateX(-50%);font:600 9px/1 ui-monospace,monospace;color:#c7cdd6;background:rgba(10,13,18,.82);padding:4px 7px;border-radius:3px">1.79k Hz</span>
+          
+            <div style="position:absolute;top:0;bottom:0;left:85%;border-left:1px dashed rgba(255,255,255,.3)"></div>
+            <div style="position:absolute;top:50%;left:85%;transform:translate(-50%,-50%);width:14px;height:14px;border-radius:50%;background:#e9edf3;border:2px solid #2FBF71;box-shadow:0 2px 6px rgba(0,0,0,.6)"></div>
+            <span style="position:absolute;top:6px;left:85%;transform:translateX(-50%);font:600 9px/1 ui-monospace,monospace;color:#c7cdd6;background:rgba(10,13,18,.82);padding:4px 7px;border-radius:3px">6.33k Hz</span>
+          
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- status bar -->
+  <div style="height:38px;flex:none;display:flex;align-items:center;gap:16px;padding:0 16px;background:#0A0D12;border-top:1px solid rgba(255,255,255,.07);font:600 9px/1 ui-monospace,monospace;letter-spacing:.1em;color:#6f757e">
+    <span>IN</span><div style="width:120px;height:6px;border-radius:3px;background:linear-gradient(90deg,#2FBF71 0 62%,rgba(255,255,255,.07) 62%)"></div>
+    <span>OUT</span><div style="width:120px;height:6px;border-radius:3px;background:linear-gradient(90deg,#2FBF71 0 48%,#E0A24A 48% 80%,rgba(255,255,255,.07) 80%)"></div>
+    <span style="margin-left:auto">LATENCY 200 ms · 48 kHz · PRO</span>
+  </div>
+
+</div>
+<script>(function(){
+const FMT={g_pre:[1,' dB'],a_up:[1,''],g_porta:[0,' ms'],m_giumax:[1,''],m_spinta:[1,''],m_indbs:[1,''],m_unione:[0,' %']};
+const S={}; let drag=null;
+// ---- invio al plugin: evento JUCE, altrimenti navigazione optibob:// (una alla volta)
+const fb=[]; let fbT=null;
+function post(o){
+  try{ if(window.__JUCE__&&__JUCE__.backend&&__JUCE__.backend.emitEvent){ __JUCE__.backend.emitEvent('set',o); return; } }catch(e){}
+  fb.push(o); if(!fbT) fbT=setInterval(()=>{ const x=fb.shift(); if(!x){clearInterval(fbT);fbT=null;return;}
+    location.href='optibob://set?'+Object.keys(x).map(k=>k+'='+encodeURIComponent(x[k])).join('&'); },20);
+}
+const pend={}; let tmr=null;
+function flush(){ tmr=null; for(const k in pend){ post(pend[k]); delete pend[k]; } }
+function send(o,now){ if(now){ flush(); post(o); return; } pend[o.id]=o; if(!tmr) tmr=setTimeout(flush,25); }
+window.obLog=null;
+// ---- formattazione
+function fmtv(id,v){ const f=FMT[id]||[1,'']; return v.toFixed(f[0])+f[1]; }
+function hzf(f){ if(f>=1000){ const k=f/1000; return (k>=10?String(Math.round(k)):k.toFixed(1).replace(/\.0$/,''))+'k'; } return String(Math.round(f)); }
+const LO=Math.log10(20), HI=Math.log10(20000);
+const xOf=f=>(Math.log10(Math.max(20,Math.min(20000,f)))-LO)/(HI-LO)*1000;
+const fOf=x=>Math.pow(10,LO+(x/1000)*(HI-LO));
+const clamp=(a,lo,hi)=>Math.max(lo,Math.min(hi,a));
+// ---- disegno
+function setSlider(el,n,id,v,soloTesto){
+  if(!soloTesto){ el.querySelector('.fill').style.height=(n*100)+'%'; el.querySelector('.thumb').style.bottom=(n*100)+'%'; }
+  if(v!==undefined) el.querySelector('.v').textContent=fmtv(id,v);
+}
+function drawS(){ document.querySelectorAll('[data-p]').forEach(el=>{ const id=el.dataset.p, s=S[id]; if(s) setSlider(el,s[1],id,s[0],drag&&drag.id===id); }); }
+function xoVals(){ return [1,2,3,4].map(i=>S['m_xo'+i]?S['m_xo'+i][0]:[100,400,1500,5000][i-1]); }
+function drawB(){
+  const e=[20].concat(xoVals()).concat([20000]);
+  document.querySelectorAll('[data-b]').forEach(t=>{
+    const i=+t.dataset.b; t.querySelector('.hz').textContent=hzf(e[i-1])+'–'+hzf(e[i])+' Hz';
+    const s=S['m_gai'+i]; if(!s) return; const v=s[0];
+    t.querySelector('.bv').textContent=(v>0.05?'+':v<-0.05?'−':'')+Math.abs(v).toFixed(1)+' dB';
+    const fr=clamp(v/12,-1,1), w=Math.max(Math.abs(fr)*50,2.5), bf=t.querySelector('.bf');
+    if(fr>=0){ bf.style.left='50%'; bf.style.width=w+'%'; } else { bf.style.left=(50-w)+'%'; bf.style.width=w+'%'; }
+  });
+}
+const XC=['#4F7BFF','#2FBF71','#E0A24A','#E8713C','#EF4444'];
+const XF=['rgba(79,123,255,.18)','rgba(47,191,113,.18)','rgba(224,162,74,.18)','rgba(232,113,60,.18)','rgba(239,68,68,.15)'];
+function drawX(){
+  const svg=document.getElementById('xs'), m=document.getElementById('xm'); if(!svg||!m) return;
+  const xo=xoVals(), c=xo.map(xOf), d=110; let p='';
+  for(let k=0;k<5;k++){ const L=k==0?-150:c[k-1]-d, R=k==4?1150:c[k]+d, M=(L+R)/2;
+    p+='<path d="M'+L+' 150 Q '+M+' -10 '+R+' 150 Z" fill="'+XF[k]+'" stroke="'+XC[k]+'" stroke-width="2.5"/>'; }
+  svg.innerHTML=p;
+  let h=''; c.forEach((x,i)=>{ const pc=(x/10)+'%';
+    h+='<div style="position:absolute;top:0;bottom:0;left:'+pc+';border-left:1px dashed rgba(255,255,255,.3)"></div>'
+     +'<div style="position:absolute;top:50%;left:'+pc+';transform:translate(-50%,-50%);width:14px;height:14px;border-radius:50%;background:#e9edf3;border:2px solid #2FBF71;box-shadow:0 2px 6px rgba(0,0,0,.6)"></div>'
+     +'<span style="position:absolute;top:6px;left:'+pc+';transform:translateX(-50%);font:600 9px/1 ui-monospace,monospace;color:#c7cdd6;background:rgba(10,13,18,.82);padding:4px 7px;border-radius:3px">'+hzf(xo[i])+' Hz</span>'; });
+  m.innerHTML=h;
+}
+function drawD(){ const s=S.x_in, n=document.getElementById('drvn'); if(s&&n) n.style.transform='rotate('+(-135+s[1]*270)+'deg)'; }
+// ---- meter
+function rgba(h,a){ const n=parseInt(h.slice(1),16); return 'rgba('+(n>>16)+','+((n>>8)&255)+','+(n&255)+','+a+')'; }
+const RACK=[...document.querySelectorAll('div')].filter(d=>(d.getAttribute('style')||'').includes('repeating-linear-gradient(to bottom,transparent 0 8px'))
+  .map(d=>{ const m=(d.getAttribute('style')||'').match(/linear-gradient\(to bottom,(#[0-9A-Fa-f]{6}) 0 /); return {d,c:m?m[1]:'#2FBF71'}; });
+const IOB=[...document.querySelectorAll('div')].filter(d=>(d.getAttribute('style')||'').includes('width:120px;height:6px'));
+function drawM(m){
+  document.querySelectorAll('[data-m]').forEach(el=>{ const i=+el.dataset.m; const p=clamp((m[i]||0)/(i==0?12:18),0,1)*100;
+    el.querySelector('.mf').style.height=p+'%'; el.querySelector('.ml').style.top=p+'%'; });
+  RACK.forEach((r,i)=>{ const v=m[i]||0, p=clamp(v/(i==0?12:18),0,1)*100;
+    r.d.style.background='repeating-linear-gradient(to bottom,transparent 0 8px,#0b0e13 8px 11px),linear-gradient(to bottom,'+r.c+' 0 '+p+'%,'+rgba(r.c,.10)+' '+p+'%)'; });
+}
+function drawIO(io){ IOB.forEach((d,i)=>{ const p=clamp(((io[i]||-100)+60)/60,0,1)*100, g=Math.min(p,80);
+  d.style.background='linear-gradient(90deg,#2FBF71 0 '+g+'%,'+(p>80?'#E0A24A '+g+'% '+p+'%,':'')+'rgba(255,255,255,.07) '+p+'%)'; }); }
+const INFO=[...document.querySelectorAll('span')].find(x=>/^LATENCY/.test(x.textContent.trim()));
+window.obStato=function(o){ if(o._info!==undefined){ if(INFO) INFO.textContent=o._info; delete o._info; } if(o._m){ drawM(o._m); delete o._m; } if(o._io){ drawIO(o._io); delete o._io; } for(const k in o){ if(!(drag&&drag.id===k&&/^m_(gai|xo)/.test(k))) S[k]=o[k]; } drawS(); drawB(); drawX(); drawD(); };
+// ---- trascinamento generico
+function trascina(el,id0,su){ el.style.touchAction='none';
+  el.addEventListener('pointerdown',e=>{ e.preventDefault(); const id=typeof id0==='function'?id0(e):id0; if(!id) return;
+    el.setPointerCapture(e.pointerId); drag={id,y0:e.clientY,n0:S[id]?S[id][1]:0}; send({id,g:1},true); su(e,drag); });
+  el.addEventListener('pointermove',e=>{ if(drag&&el.hasPointerCapture(e.pointerId)) su(e,drag); });
+  const fine=e=>{ if(drag&&el.hasPointerCapture&&el.hasPointerCapture(e.pointerId)){ const id=drag.id; drag=null; send({id,g:0},true); } };
+  el.addEventListener('pointerup',fine); el.addEventListener('pointercancel',fine);
+}
+document.querySelectorAll('[data-p]').forEach(el=>{ const t=el.querySelector('.t'), id=el.dataset.p; t.style.cursor='ns-resize';
+  trascina(t,id,(e,d)=>{ const r=t.getBoundingClientRect(); const n=clamp(1-(e.clientY-r.top)/r.height,0,1); setSlider(el,n); send({id,n}); }); });
+document.querySelectorAll('[data-b]').forEach(t=>{ const id='m_gai'+t.dataset.b; t.style.cursor='ew-resize';
+  trascina(t,id,(e,d)=>{ const r=t.querySelector('.bt').getBoundingClientRect(); const fr=clamp((e.clientX-r.left)/r.width,0,1);
+    const v=Math.round((fr*2-1)*120)/10; S[id]=[v,S[id]?S[id][1]:0]; drawB(); send({id,v}); }); });
+const xc=document.getElementById('xc');
+if(xc){ xc.style.cursor='ew-resize';
+  trascina(xc,e=>{ const r=xc.getBoundingClientRect(), x=(e.clientX-r.left)/r.width*1000; let b=1,bd=1e9;
+      xoVals().forEach((f,i)=>{ const dd=Math.abs(xOf(f)-x); if(dd<bd){bd=dd;b=i+1;} }); return 'm_xo'+b; },
+    (e,d)=>{ const r=xc.getBoundingClientRect(), f=Math.round(fOf(clamp((e.clientX-r.left)/r.width*1000,0,1000)));
+      S[d.id]=[f,S[d.id]?S[d.id][1]:0]; drawX(); drawB(); send({id:d.id,v:f}); }); }
+const dv=document.getElementById('drv');
+if(dv){ dv.style.cursor='ns-resize';
+  trascina(dv,'x_in',(e,d)=>{ const n=clamp(d.n0-(e.clientY-d.y0)/150,0,1); S.x_in=[S.x_in?S.x_in[0]:0,n]; drawD(); send({id:'x_in',n}); }); }
+// ---- A / B: A = OptiBob al lavoro, B = suono originale (per sentire la differenza)
+(function(){ const bt=[...document.querySelectorAll('button')].find(x=>x.textContent.trim()==='A / B'); if(!bt) return;
+  let b=false;
+  function look(){ bt.textContent=b?'B · ORIGINAL':'A · OPTIBOB';
+    bt.style.background=b?'rgba(224,162,74,.16)':'rgba(47,191,113,.16)';
+    bt.style.borderColor=b?'#E0A24A':'#2FBF71'; bt.style.color=b?'#E0A24A':'#2FBF71'; bt.style.minWidth='128px'; }
+  bt.addEventListener('click',()=>{ b=!b; look(); send({id:'_ab',v:b?1:0},true); });
+  look(); })();
+})();
+</script></body></html>

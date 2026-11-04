@@ -1,0 +1,256 @@
+<!doctype html><html><head><meta charset="utf-8">
+<style>
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+</style>
+</head><body style="margin:0;background:#fff">
+<div style="width:1120px;height:720px;box-sizing:border-box;background:#0E1116;border:1px solid rgba(255,255,255,.1);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;color:#E6EBF2">
+
+  <!-- title bar -->
+  <div style="height:46px;flex:none;display:flex;align-items:center;gap:12px;padding:0 16px;background:#0A0D12;border-bottom:1px solid rgba(255,255,255,.07)">
+    <div style="display:flex;gap:8px"><span style="width:11px;height:11px;border-radius:50%;background:#ff5f57"></span><span style="width:11px;height:11px;border-radius:50%;background:#febc2e"></span><span style="width:11px;height:11px;border-radius:50%;background:#28c840"></span></div>
+    <div style="display:flex;align-items:baseline;gap:9px;margin-left:6px"><b style="font-size:15px;letter-spacing:-.01em">OptiBob</b><span style="font:600 10px/1 ui-monospace,monospace;letter-spacing:.14em;color:#6f757e">OPTILIVE</span></div>
+    <span style="display:inline-flex;align-items:center;gap:6px;margin-left:4px;font:600 10px/1 ui-monospace,monospace;letter-spacing:.1em;color:#2FBF71"><span style="width:7px;height:7px;border-radius:50%;background:#2FBF71"></span>ACTIVE</span>
+    <span style="margin-left:auto;font:700 10px/1 ui-monospace,monospace;letter-spacing:.14em;color:#042313;background:#14C25A;padding:6px 10px;border-radius:4px">BASIC</span>
+  </div>
+
+  <!-- toolbar: in / out / presets / compare -->
+  <div style="flex:none;display:flex;align-items:center;gap:14px;padding:12px 16px;background:#11151C;border-bottom:1px solid rgba(255,255,255,.07)">
+    <span style="font:600 10px/1 ui-monospace,monospace;letter-spacing:.14em;color:#6f757e">IN</span>
+    <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid rgba(255,255,255,.12);border-radius:6px;background:#0E1116;font-size:13px;color:#c7cdd6">Line In · USB<span style="color:#6f757e">▾</span></div>
+    <span style="color:#4a515b;font-size:16px">→</span>
+    <span style="font:600 10px/1 ui-monospace,monospace;letter-spacing:.14em;color:#6f757e">OUT</span>
+    <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid rgba(255,255,255,.12);border-radius:6px;background:#0E1116;font-size:13px;color:#c7cdd6">To encoder<span style="color:#6f757e">▾</span></div>
+    <div style="margin-left:auto;display:flex;gap:6px;align-items:center">
+      <span style="font:600 10px/1 ui-monospace,monospace;letter-spacing:.12em;color:#6f757e;margin-right:4px">PRESET</span>
+      <button style="font:600 12px/1 ui-monospace,monospace;padding:9px 13px;border-radius:6px;border:1px solid rgba(255,255,255,.12);background:#0E1116;color:#c7cdd6;cursor:pointer">Soft</button>
+      <button style="font:600 12px/1 ui-monospace,monospace;padding:9px 13px;border-radius:6px;border:1px solid #14C25A;background:rgba(20,194,90,.14);color:#2FBF71;cursor:pointer">Radio</button>
+      <button style="font:600 12px/1 ui-monospace,monospace;padding:9px 13px;border-radius:6px;border:1px solid rgba(255,255,255,.12);background:#0E1116;color:#c7cdd6;cursor:pointer">Loud</button>
+      <span style="width:1px;height:26px;background:rgba(255,255,255,.1);margin:0 6px"></span>
+      <button style="font:700 11px/1 ui-monospace,monospace;letter-spacing:.1em;padding:9px 13px;border-radius:6px;border:1px solid rgba(255,255,255,.14);background:#0E1116;color:#E6EBF2;cursor:pointer">A / B</button>
+    </div>
+  </div>
+
+  <!-- body -->
+  <div style="flex:1;min-height:0;display:flex;flex-direction:column;gap:14px;padding:16px">
+
+    <!-- rack: OptiBob + gain reduction meters + drive -->
+    <div style="flex:none;display:flex;align-items:center;gap:20px;padding:18px 22px;background:linear-gradient(#1a1e24,#111419);border:1px solid #2a3139;border-radius:10px">
+      <div style="flex:none;width:200px">
+        <div style="font:800 26px/1 system-ui;letter-spacing:.02em;color:#E8E6E1">OPTIBOB</div>
+        <div style="font:600 8.5px/1 ui-monospace,monospace;letter-spacing:.26em;color:#7d838c;margin-top:7px">PROGRAM PROCESSOR</div><div style="font:700 9px/1 ui-monospace,monospace;letter-spacing:.16em;color:#14C25A;margin-top:9px">BASIC</div>
+        <div style="display:flex;align-items:center;gap:7px;margin-top:16px;font:600 8px/1 ui-monospace,monospace;letter-spacing:.18em;color:#6f757e"><span style="width:7px;height:7px;border-radius:50%;background:#5fc27e"></span>ACTIVE</div>
+      </div>
+      <div style="flex:1;min-width:0">
+        <div style="font:600 8px/1 ui-monospace,monospace;letter-spacing:.24em;color:#6f757e;margin-bottom:10px">GAIN REDUCTION</div>
+        <div style="display:flex;gap:16px;height:118px">
+          <div style="flex:1;border-radius:3px;background:repeating-linear-gradient(to bottom,transparent 0 8px,#0b0e13 8px 11px),linear-gradient(to bottom,#2FBF71 0 42%,rgba(47,191,113,.10) 42%)"></div>
+          <div style="flex:1;border-radius:3px;background:repeating-linear-gradient(to bottom,transparent 0 8px,#0b0e13 8px 11px),linear-gradient(to bottom,#38BDF8 0 26%,rgba(56,189,248,.10) 26%)"></div>
+          <div style="flex:1;border-radius:3px;background:repeating-linear-gradient(to bottom,transparent 0 8px,#0b0e13 8px 11px),linear-gradient(to bottom,#4F7BFF 0 34%,rgba(79,123,255,.10) 34%)"></div>
+          <div style="flex:1;border-radius:3px;background:repeating-linear-gradient(to bottom,transparent 0 8px,#0b0e13 8px 11px),linear-gradient(to bottom,#9B6BF2 0 30%,rgba(155,107,242,.10) 30%)"></div>
+          <div style="flex:1;border-radius:3px;background:repeating-linear-gradient(to bottom,transparent 0 8px,#0b0e13 8px 11px),linear-gradient(to bottom,#E0A24A 0 56%,rgba(224,162,74,.10) 56%)"></div>
+          <div style="flex:1;border-radius:3px;background:repeating-linear-gradient(to bottom,transparent 0 8px,#0b0e13 8px 11px),linear-gradient(to bottom,#E8713C 0 48%,rgba(232,113,60,.10) 48%)"></div>
+        </div>
+        <div style="font:600 8px/1 ui-monospace,monospace;letter-spacing:.14em;color:#585e66;margin-top:9px">20 · 100 · 250 · 600 · 1k5 · 4k · 15k Hz</div>
+      </div>
+      <div style="flex:none;display:flex;flex-direction:column;align-items:center;gap:9px">
+        <div style="position:relative;width:62px;height:62px;border-radius:50%;background:radial-gradient(circle at 50% 35%,#4a5058,#23272d 72%);border:1px solid #4c535c">
+          <div style="position:absolute;left:50%;top:7px;width:2px;height:17px;margin-left:-1px;background:#41A6F5;border-radius:1px;transform-origin:50% 24px;transform:rotate(18deg)"></div>
+        </div>
+        <div style="font:600 8px/1 ui-monospace,monospace;letter-spacing:.2em;color:#6f757e">DRIVE</div>
+      </div>
+    </div>
+
+    <!-- strip: the six knobs + delay -->
+    <div style="flex:1;min-height:0;display:flex;flex-direction:column;background:#11151C;border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:14px 18px">
+      <div style="display:flex;gap:6px;align-items:center;font:600 9px/1 ui-monospace,monospace;letter-spacing:.16em;color:#6f757e;margin-bottom:12px"><span style="width:3px;height:12px;background:#2FBF71;border-radius:2px"></span>LEVELLER &amp; BANK<span style="margin-left:auto;color:#4a515b;letter-spacing:.04em;font-weight:400">What a single knob can't do.</span></div>
+      <div style="flex:1;min-height:0;display:flex;gap:16px;align-items:stretch">
+
+        <div style="display:flex;flex-direction:column;gap:10px;padding-right:16px;border-right:1px solid rgba(255,255,255,.08)">
+          <div style="font:600 8.5px/1 ui-monospace,monospace;letter-spacing:.18em;color:#8a93a0">LEVELLER</div>
+          <div style="flex:1;display:flex;gap:2px">
+            
+              <div style="display:flex;flex-direction:column;align-items:center;gap:7px;width:92px">
+                <div style="font:700 10px/1 ui-monospace,monospace;color:#2FBF71">14.5 dB</div>
+                <div style="position:relative;flex:1;min-height:80px;width:32px;display:flex;justify-content:center">
+                  <div style="width:8px;height:100%;border-radius:4px;background:linear-gradient(#05070d,#0c0f15);box-shadow:inset 0 0 0 1px rgba(255,255,255,.05),inset 0 2px 5px rgba(0,0,0,.7);position:relative;overflow:hidden">
+                    <div style="position:absolute;left:0;right:0;bottom:0;height:70%;background:linear-gradient(#34d07e,#1f9a57)"></div>
+                  </div>
+                  <div style="position:absolute;left:50%;bottom:70%;transform:translate(-50%,50%);width:30px;height:15px;border-radius:3px;background:linear-gradient(#4a515b,#20252c);border:1px solid #0e1216;box-shadow:0 2px 5px rgba(0,0,0,.6)">
+                    <div style="position:absolute;left:4px;right:4px;top:50%;height:2px;margin-top:-1px;background:#9aa2ad;border-radius:1px"></div>
+                  </div>
+                </div>
+                <div style="font:700 9px/1.2 ui-monospace,monospace;color:#c7cdd6;text-align:center">AGC drive</div>
+                <div style="font:400 8px/1.35 ui-monospace,monospace;color:#737b86;text-align:center;min-height:30px">gain reduction 10–15 dB</div>
+              </div>
+            
+              <div style="display:flex;flex-direction:column;align-items:center;gap:7px;width:92px">
+                <div style="font:700 10px/1 ui-monospace,monospace;color:#2FBF71">7.0</div>
+                <div style="position:relative;flex:1;min-height:80px;width:32px;display:flex;justify-content:center">
+                  <div style="width:8px;height:100%;border-radius:4px;background:linear-gradient(#05070d,#0c0f15);box-shadow:inset 0 0 0 1px rgba(255,255,255,.05),inset 0 2px 5px rgba(0,0,0,.7);position:relative;overflow:hidden">
+                    <div style="position:absolute;left:0;right:0;bottom:0;height:40%;background:linear-gradient(#34d07e,#1f9a57)"></div>
+                  </div>
+                  <div style="position:absolute;left:50%;bottom:40%;transform:translate(-50%,50%);width:30px;height:15px;border-radius:3px;background:linear-gradient(#4a515b,#20252c);border:1px solid #0e1216;box-shadow:0 2px 5px rgba(0,0,0,.6)">
+                    <div style="position:absolute;left:4px;right:4px;top:50%;height:2px;margin-top:-1px;background:#9aa2ad;border-radius:1px"></div>
+                  </div>
+                </div>
+                <div style="font:700 9px/1.2 ui-monospace,monospace;color:#c7cdd6;text-align:center">AGC release</div>
+                <div style="font:400 8px/1.35 ui-monospace,monospace;color:#737b86;text-align:center;min-height:30px">0.5–20 · 7 for a lively sound</div>
+              </div>
+            
+              <div style="display:flex;flex-direction:column;align-items:center;gap:7px;width:92px">
+                <div style="font:700 10px/1 ui-monospace,monospace;color:#2FBF71">200 ms</div>
+                <div style="position:relative;flex:1;min-height:80px;width:32px;display:flex;justify-content:center">
+                  <div style="width:8px;height:100%;border-radius:4px;background:linear-gradient(#05070d,#0c0f15);box-shadow:inset 0 0 0 1px rgba(255,255,255,.05),inset 0 2px 5px rgba(0,0,0,.7);position:relative;overflow:hidden">
+                    <div style="position:absolute;left:0;right:0;bottom:0;height:22%;background:linear-gradient(#34d07e,#1f9a57)"></div>
+                  </div>
+                  <div style="position:absolute;left:50%;bottom:22%;transform:translate(-50%,50%);width:30px;height:15px;border-radius:3px;background:linear-gradient(#4a515b,#20252c);border:1px solid #0e1216;box-shadow:0 2px 5px rgba(0,0,0,.6)">
+                    <div style="position:absolute;left:4px;right:4px;top:50%;height:2px;margin-top:-1px;background:#9aa2ad;border-radius:1px"></div>
+                  </div>
+                </div>
+                <div style="font:700 9px/1.2 ui-monospace,monospace;color:#c7cdd6;text-align:center">Delay</div>
+                <div style="font:400 8px/1.35 ui-monospace,monospace;color:#737b86;text-align:center;min-height:30px">look-ahead · never overshoots</div>
+              </div>
+            
+          </div>
+        </div>
+
+        <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:10px">
+          <div style="font:600 8.5px/1 ui-monospace,monospace;letter-spacing:.18em;color:#8a93a0">HOW MUCH IT SQUASHES</div>
+          <div style="flex:1;display:flex;gap:7px">
+            
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px">
+                <div style="flex:1;width:100%;border-radius:4px;background:#0a0d12;border:1px solid rgba(255,255,255,.06);position:relative;overflow:hidden">
+                  <div style="position:absolute;left:0;right:0;top:0;height:20%;background:linear-gradient(rgba(224,162,74,.16),rgba(224,162,74,.03))"></div>
+                  <div style="position:absolute;left:3px;right:3px;top:20%;height:3px;margin-top:-1px;background:#E0A24A;border-radius:2px;box-shadow:0 0 6px rgba(224,162,74,.6)"></div>
+                </div>
+                <div style="font:600 8px/1 ui-monospace,monospace;color:#6f757e">AGC</div>
+              </div>
+            
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px">
+                <div style="flex:1;width:100%;border-radius:4px;background:#0a0d12;border:1px solid rgba(255,255,255,.06);position:relative;overflow:hidden">
+                  <div style="position:absolute;left:0;right:0;top:0;height:32%;background:linear-gradient(rgba(224,162,74,.16),rgba(224,162,74,.03))"></div>
+                  <div style="position:absolute;left:3px;right:3px;top:32%;height:3px;margin-top:-1px;background:#E0A24A;border-radius:2px;box-shadow:0 0 6px rgba(224,162,74,.6)"></div>
+                </div>
+                <div style="font:600 8px/1 ui-monospace,monospace;color:#6f757e">1</div>
+              </div>
+            
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px">
+                <div style="flex:1;width:100%;border-radius:4px;background:#0a0d12;border:1px solid rgba(255,255,255,.06);position:relative;overflow:hidden">
+                  <div style="position:absolute;left:0;right:0;top:0;height:44%;background:linear-gradient(rgba(224,162,74,.16),rgba(224,162,74,.03))"></div>
+                  <div style="position:absolute;left:3px;right:3px;top:44%;height:3px;margin-top:-1px;background:#E0A24A;border-radius:2px;box-shadow:0 0 6px rgba(224,162,74,.6)"></div>
+                </div>
+                <div style="font:600 8px/1 ui-monospace,monospace;color:#6f757e">2</div>
+              </div>
+            
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px">
+                <div style="flex:1;width:100%;border-radius:4px;background:#0a0d12;border:1px solid rgba(255,255,255,.06);position:relative;overflow:hidden">
+                  <div style="position:absolute;left:0;right:0;top:0;height:26%;background:linear-gradient(rgba(224,162,74,.16),rgba(224,162,74,.03))"></div>
+                  <div style="position:absolute;left:3px;right:3px;top:26%;height:3px;margin-top:-1px;background:#E0A24A;border-radius:2px;box-shadow:0 0 6px rgba(224,162,74,.6)"></div>
+                </div>
+                <div style="font:600 8px/1 ui-monospace,monospace;color:#6f757e">3</div>
+              </div>
+            
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px">
+                <div style="flex:1;width:100%;border-radius:4px;background:#0a0d12;border:1px solid rgba(255,255,255,.06);position:relative;overflow:hidden">
+                  <div style="position:absolute;left:0;right:0;top:0;height:50%;background:linear-gradient(rgba(224,162,74,.16),rgba(224,162,74,.03))"></div>
+                  <div style="position:absolute;left:3px;right:3px;top:50%;height:3px;margin-top:-1px;background:#E0A24A;border-radius:2px;box-shadow:0 0 6px rgba(224,162,74,.6)"></div>
+                </div>
+                <div style="font:600 8px/1 ui-monospace,monospace;color:#6f757e">4</div>
+              </div>
+            
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px">
+                <div style="flex:1;width:100%;border-radius:4px;background:#0a0d12;border:1px solid rgba(255,255,255,.06);position:relative;overflow:hidden">
+                  <div style="position:absolute;left:0;right:0;top:0;height:38%;background:linear-gradient(rgba(224,162,74,.16),rgba(224,162,74,.03))"></div>
+                  <div style="position:absolute;left:3px;right:3px;top:38%;height:3px;margin-top:-1px;background:#E0A24A;border-radius:2px;box-shadow:0 0 6px rgba(224,162,74,.6)"></div>
+                </div>
+                <div style="font:600 8px/1 ui-monospace,monospace;color:#6f757e">5</div>
+              </div>
+            
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px">
+                <div style="flex:1;width:100%;border-radius:4px;background:#0a0d12;border:1px solid rgba(255,255,255,.06);position:relative;overflow:hidden">
+                  <div style="position:absolute;left:0;right:0;top:0;height:12%;background:linear-gradient(rgba(224,162,74,.16),rgba(224,162,74,.03))"></div>
+                  <div style="position:absolute;left:3px;right:3px;top:12%;height:3px;margin-top:-1px;background:#E0A24A;border-radius:2px;box-shadow:0 0 6px rgba(224,162,74,.6)"></div>
+                </div>
+                <div style="font:600 8px/1 ui-monospace,monospace;color:#6f757e">CLIP</div>
+              </div>
+            
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:10px;padding-left:16px;border-left:1px solid rgba(255,255,255,.08)">
+          <div style="font:600 8.5px/1 ui-monospace,monospace;letter-spacing:.18em;color:#8a93a0">BANK</div>
+          <div style="flex:1;display:flex;gap:2px">
+            
+              <div style="display:flex;flex-direction:column;align-items:center;gap:7px;width:92px">
+                <div style="font:700 10px/1 ui-monospace,monospace;color:#2FBF71">2.0</div>
+                <div style="position:relative;flex:1;min-height:80px;width:32px;display:flex;justify-content:center">
+                  <div style="width:8px;height:100%;border-radius:4px;background:linear-gradient(#05070d,#0c0f15);box-shadow:inset 0 0 0 1px rgba(255,255,255,.05),inset 0 2px 5px rgba(0,0,0,.7);position:relative;overflow:hidden">
+                    <div style="position:absolute;left:0;right:0;bottom:0;height:26%;background:linear-gradient(#34d07e,#1f9a57)"></div>
+                  </div>
+                  <div style="position:absolute;left:50%;bottom:26%;transform:translate(-50%,50%);width:30px;height:15px;border-radius:3px;background:linear-gradient(#4a515b,#20252c);border:1px solid #0e1216;box-shadow:0 2px 5px rgba(0,0,0,.6)">
+                    <div style="position:absolute;left:4px;right:4px;top:50%;height:2px;margin-top:-1px;background:#9aa2ad;border-radius:1px"></div>
+                  </div>
+                </div>
+                <div style="font:700 9px/1.2 ui-monospace,monospace;color:#c7cdd6;text-align:center">Squash</div>
+                <div style="font:400 8px/1.35 ui-monospace,monospace;color:#737b86;text-align:center;min-height:30px">0 = flat tuning · each notch squashes more</div>
+              </div>
+            
+              <div style="display:flex;flex-direction:column;align-items:center;gap:7px;width:92px">
+                <div style="font:700 10px/1 ui-monospace,monospace;color:#2FBF71">14.0</div>
+                <div style="position:relative;flex:1;min-height:80px;width:32px;display:flex;justify-content:center">
+                  <div style="width:8px;height:100%;border-radius:4px;background:linear-gradient(#05070d,#0c0f15);box-shadow:inset 0 0 0 1px rgba(255,255,255,.05),inset 0 2px 5px rgba(0,0,0,.7);position:relative;overflow:hidden">
+                    <div style="position:absolute;left:0;right:0;bottom:0;height:68%;background:linear-gradient(#34d07e,#1f9a57)"></div>
+                  </div>
+                  <div style="position:absolute;left:50%;bottom:68%;transform:translate(-50%,50%);width:30px;height:15px;border-radius:3px;background:linear-gradient(#4a515b,#20252c);border:1px solid #0e1216;box-shadow:0 2px 5px rgba(0,0,0,.6)">
+                    <div style="position:absolute;left:4px;right:4px;top:50%;height:2px;margin-top:-1px;background:#9aa2ad;border-radius:1px"></div>
+                  </div>
+                </div>
+                <div style="font:700 9px/1.2 ui-monospace,monospace;color:#c7cdd6;text-align:center">MB drive</div>
+                <div style="font:400 8px/1.35 ui-monospace,monospace;color:#737b86;text-align:center;min-height:30px">14–15 · band 3 between −10 and −15</div>
+              </div>
+            
+              <div style="display:flex;flex-direction:column;align-items:center;gap:7px;width:92px">
+                <div style="font:700 10px/1 ui-monospace,monospace;color:#2FBF71">4.0</div>
+                <div style="position:relative;flex:1;min-height:80px;width:32px;display:flex;justify-content:center">
+                  <div style="width:8px;height:100%;border-radius:4px;background:linear-gradient(#05070d,#0c0f15);box-shadow:inset 0 0 0 1px rgba(255,255,255,.05),inset 0 2px 5px rgba(0,0,0,.7);position:relative;overflow:hidden">
+                    <div style="position:absolute;left:0;right:0;bottom:0;height:46%;background:linear-gradient(#34d07e,#1f9a57)"></div>
+                  </div>
+                  <div style="position:absolute;left:50%;bottom:46%;transform:translate(-50%,50%);width:30px;height:15px;border-radius:3px;background:linear-gradient(#4a515b,#20252c);border:1px solid #0e1216;box-shadow:0 2px 5px rgba(0,0,0,.6)">
+                    <div style="position:absolute;left:4px;right:4px;top:50%;height:2px;margin-top:-1px;background:#9aa2ad;border-radius:1px"></div>
+                  </div>
+                </div>
+                <div style="font:700 9px/1.2 ui-monospace,monospace;color:#c7cdd6;text-align:center">MB release</div>
+                <div style="font:400 8px/1.35 ui-monospace,monospace;color:#737b86;text-align:center;min-height:30px">medium-fast · above 9 hurts dynamics</div>
+              </div>
+            
+              <div style="display:flex;flex-direction:column;align-items:center;gap:7px;width:92px">
+                <div style="font:700 10px/1 ui-monospace,monospace;color:#2FBF71">5.2</div>
+                <div style="position:relative;flex:1;min-height:80px;width:32px;display:flex;justify-content:center">
+                  <div style="width:8px;height:100%;border-radius:4px;background:linear-gradient(#05070d,#0c0f15);box-shadow:inset 0 0 0 1px rgba(255,255,255,.05),inset 0 2px 5px rgba(0,0,0,.7);position:relative;overflow:hidden">
+                    <div style="position:absolute;left:0;right:0;bottom:0;height:55%;background:linear-gradient(#34d07e,#1f9a57)"></div>
+                  </div>
+                  <div style="position:absolute;left:50%;bottom:55%;transform:translate(-50%,50%);width:30px;height:15px;border-radius:3px;background:linear-gradient(#4a515b,#20252c);border:1px solid #0e1216;box-shadow:0 2px 5px rgba(0,0,0,.6)">
+                    <div style="position:absolute;left:4px;right:4px;top:50%;height:2px;margin-top:-1px;background:#9aa2ad;border-radius:1px"></div>
+                  </div>
+                </div>
+                <div style="font:700 9px/1.2 ui-monospace,monospace;color:#c7cdd6;text-align:center">Bonding</div>
+                <div style="font:400 8px/1.35 ui-monospace,monospace;color:#737b86;text-align:center;min-height:30px">5–8 · at 0 the bands split apart</div>
+              </div>
+            
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- status bar -->
+  <div style="height:38px;flex:none;display:flex;align-items:center;gap:16px;padding:0 16px;background:#0A0D12;border-top:1px solid rgba(255,255,255,.07);font:600 9px/1 ui-monospace,monospace;letter-spacing:.1em;color:#6f757e">
+    <span>IN</span><div style="width:120px;height:6px;border-radius:3px;background:linear-gradient(90deg,#2FBF71 0 62%,rgba(255,255,255,.07) 62%)"></div>
+    <span>OUT</span><div style="width:120px;height:6px;border-radius:3px;background:linear-gradient(90deg,#2FBF71 0 48%,#E0A24A 48% 80%,rgba(255,255,255,.07) 80%)"></div>
+    <span style="margin-left:auto">LATENCY 200 ms · 48 kHz</span>
+  </div>
+
+</div>
+</body></html>

@@ -14,7 +14,7 @@ namespace uno {
 
 // Vero = si lavora in italiano. Sta qui e non nell'editor perche' la
 // leggono sia le pagine dei cursori sia i tasti in fondo.
-inline bool& italiano() { static bool i = true; return i; }
+inline bool& italiano() { static bool i = false; return i; }
 
 struct Voce {
     const char* id; const char* nome; const char* unita;
@@ -90,8 +90,8 @@ inline const std::vector<Voce>& vociAgc() {
         // che abbiamo inseguito per mezza giornata dentro il clipper.
         // Sta PRIMA di tutto: prima dell'equalizzatore, prima del
         // livellatore, prima delle bande.
-        {"g_porta","Gate: look-ahead"," ms",0,1000,10,0,"The stage before everything. It delays the sound by this much and meanwhile LOOKS AHEAD: it knows the peak of the audio that has not played yet, so the gain is already right when it arrives. It never chases and never overshoots - the chain always gets the level it was tuned for. 0 turns it off. It costs latency, one for one: 200 ms is plenty for listening, 1000 makes it immovable.",
-         "Porta: anticipo","Lo stadio prima di tutto. Ritarda il suono di tanto cosi' e intanto GUARDA AVANTI: conosce il picco del suono che deve ancora uscire, quindi mette il guadagno giusto PRIMA che arrivi. Non insegue e non sfonda mai: la catena riceve sempre il livello per cui e' tarata. A 0 e' spenta. Si paga in ritardo, uno per uno: 200 ms bastano per ascoltare, 1000 la rendono incrollabile."},
+        {"g_porta","Delay"," ms",0,1000,10,0,"The stage before everything. It delays the sound by this much and meanwhile LOOKS AHEAD: it knows the peak of the audio that has not played yet, so the gain is already right when it arrives. It never chases and never overshoots - the chain always gets the level it was tuned for. 0 turns it off. It costs latency, one for one: 200 ms is plenty for listening, 1000 makes it immovable.",
+         "Delay","Lo stadio prima di tutto. Ritarda il suono di tanto cosi' e intanto GUARDA AVANTI: conosce il picco del suono che deve ancora uscire, quindi mette il guadagno giusto PRIMA che arrivi. Non insegue e non sfonda mai: la catena riceve sempre il livello per cui e' tarata. A 0 e' spenta. Si paga in ritardo, uno per uno: 200 ms bastano per ascoltare, 1000 la rendono incrollabile."},
         {"g_pbers","Gate: target"," dB",-24,-3,0.5f,-12,"Where the peaks are put. The whole chain is tuned for -12.",
          "Porta: bersaglio","Dove mette i picchi. Tutta la catena e' tarata per -12."},
         // ⭐⭐ 18/09/2026 — «MAI SOTTO» ANCHE PER LA PORTA. Luca: «vicino a

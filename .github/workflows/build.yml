@@ -12,6 +12,11 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
+      - name: WebView2 SDK (per l'interfaccia)
+        shell: pwsh
+        run: |
+          Register-PackageSource -ProviderName NuGet -Name nugetRepository -Location https://www.nuget.org/api/v2 -Force | Out-Null
+          Install-Package Microsoft.Web.WebView2 -Scope CurrentUser -RequiredVersion 1.0.1901.177 -Source nugetRepository -Force | Out-Null
       - name: Configura
         run: cmake -B build -DCMAKE_BUILD_TYPE=Release
       - name: Compila
@@ -29,13 +34,17 @@ jobs:
             Write-Error "Windows DIVERSO dal Mac: picco $picco (atteso $rifP), rms $rms (atteso $rifR)"; exit 1
           }
           Write-Host "OK: su Windows il motore suona identico al Mac."
-      - name: Raccogli Windows (VST3 + app standalone)
-        uses: actions/upload-artifact@v4
+      - name: Installer (OptiBob-Windows-Setup.exe)
+        shell: pwsh
+        run: |
+          if (-not (Test-Path "C:\Program Files (x86)\Inno Setup 6\ISCC.exe")) { choco install innosetup -y --no-progress }
+          Copy-Item installer-windows.iss build\
+          & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" build\installer-windows.iss
+          Get-ChildItem build\OptiBob-Windows-Setup.exe
+      - uses: actions/upload-artifact@v4
         with:
           name: OptiBob-Windows
-          path: |
-            build/**/OptiBob.vst3
-            build/**/OptiBob.exe
+          path: build/OptiBob-Windows-Setup.exe
 
   macos:
     runs-on: macos-latest
@@ -44,37 +53,39 @@ jobs:
       - name: Configura
         run: cmake -B build -DCMAKE_BUILD_TYPE=Release
       - name: Compila
-        run: cmake --build build --config Release
+        run: cmake --build build --config Release -j4
       - name: Verifica motore (riferimento)
         run: |
           exe=$(find build -name prova-motore -type f | head -1)
           "$exe"
-      - name: Raccogli Mac (AU + VST3 + app standalone)
-        uses: actions/upload-artifact@v4
+      - name: Installer (OptiBob-Mac.pkg)
+        run: BUILD="$PWD/build" OUT="$PWD/out" SALTA_COMPILA=1 bash installer-mac.command
+      - uses: actions/upload-artifact@v4
         with:
           name: OptiBob-macOS
-          path: |
-            build/**/OptiBob.vst3
-            build/**/OptiBob.component
-            build/**/OptiBob.app
+          path: out/OptiBob-Mac.pkg
 
   pubblica-download:
     needs: [windows, macos]
     runs-on: ubuntu-latest
     steps:
-      - name: Scarica il pacchetto Windows
-        uses: actions/download-artifact@v4
-        with:
-          name: OptiBob-Windows
-          path: win
-      - name: Fai lo zip
-        run: |
-          cd win && zip -r ../OptiBob-Windows.zip . && cd ..
-          ls -la OptiBob-Windows.zip
-      - name: Pubblica come download (link fisso)
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with: { name: OptiBob-Windows, path: rilascio }
+      - uses: actions/download-artifact@v4
+        with: { name: OptiBob-macOS, path: rilascio }
+      - run: cp OptiBobPlayer.zip rilascio/ && ls -la rilascio
+      - name: Pubblica i download (www.optibob.com punta a releases/latest)
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: windows-ultima
-          name: OptiBob per Windows (ultima build)
-          body: "App standalone + plugin VST3. Non ancora firmato: Windows mostra un avviso, Esegui comunque."
-          files: OptiBob-Windows.zip
+          tag_name: v1.0.0
+          name: OptiBob 1.0.0
+          make_latest: true
+          body: |
+            OptiBob-Mac.pkg — OptiBob Live (app) + OptiBob Plugin (AU/VST3), macOS 14.4+
+            OptiBob-Windows-Setup.exe — OptiBob Live (app) + OptiBob Plugin (VST3)
+            OptiBobPlayer.zip — OptiBob Player for Mac (free)
+          files: |
+            rilascio/OptiBob-Mac.pkg
+            rilascio/OptiBob-Windows-Setup.exe
+            rilascio/OptiBobPlayer.zip
