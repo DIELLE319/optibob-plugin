@@ -78,11 +78,11 @@ jobs:
       - name: Pubblica i download (www.optibob.com punta a releases/latest)
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v1.0.0
-          name: OptiBob 1.0.0
+          tag_name: v1.0.1
+          name: OptiBob 1.0.1
           make_latest: true
           body: |
-            OptiBob-Mac.pkg — OptiBob Live (app) + OptiBob Plugin (AU/VST3), macOS 14.4+
+            OptiBob-Mac.pkg — OptiBob Live (app) + OptiBob Plugin (AU/VST3) + BlackHole 2ch for macOS before 14.4
             OptiBob-Windows-Setup.exe — OptiBob Live (app) + OptiBob Plugin (VST3)
             OptiBobPlayer.zip — OptiBob Player for Mac (free)
           files: |

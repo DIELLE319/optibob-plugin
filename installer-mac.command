@@ -46,15 +46,28 @@ UNI
 chmod +x "$RP/Applications/OptiBob Plugin Uninstall.command"
 pkgbuild --root "$RP" --identifier com.optibob.plugin --version "$VER" --install-location / "$T/OptiBob-Plugin.pkg" >/dev/null
 
+# -- BlackHole 2ch (solo macOS prima del 14.4; liberatoria di Existential Audio) --
+BH=""
+if [ -f "$APP_DIR/BlackHole2ch.driver.zip" ]; then
+  RB="$T/b/root/Library/Audio/Plug-Ins/HAL"; mkdir -p "$RB" "$T/b/script"
+  ditto -x -k "$APP_DIR/BlackHole2ch.driver.zip" "$RB"
+  printf '#!/bin/bash\nlaunchctl kickstart -k system/com.apple.audio.coreaudiod 2>/dev/null || killall coreaudiod 2>/dev/null\nexit 0\n' > "$T/b/script/postinstall"
+  chmod +x "$T/b/script/postinstall"
+  pkgbuild --root "$T/b/root" --scripts "$T/b/script" --identifier com.optibob.blackhole --version "$VER" --install-location / "$T/BlackHole.pkg" >/dev/null
+  BH=1
+fi
+
 echo "3/3  un solo pacchetto con la scelta…"
 cat > "$T/distribution.xml" <<'XML'
 <?xml version="1.0" encoding="utf-8"?>
 <installer-gui-script minSpecVersion="2">
   <title>OptiBob</title>
   <options customize="always" rootVolumeOnly="true"/>
+  <script>function ob_vecchio(){ return system.compareVersions(system.version.ProductVersion, '14.4') &lt; 0; }</script>
   <choices-outline>
     <line choice="desktop"/>
     <line choice="plugin"/>
+    <!--BH_LINE-->
   </choices-outline>
   <choice id="desktop" title="OptiBob Live (app)" description="The standalone processor for your radio. It takes the sound your Mac plays, no extra drivers.">
     <pkg-ref id="com.optibob.desktop"/>
@@ -62,10 +75,15 @@ cat > "$T/distribution.xml" <<'XML'
   <choice id="plugin" title="OptiBob Plugin (AU / VST3)" description="For music software: Logic, Ableton, Reaper…">
     <pkg-ref id="com.optibob.plugin"/>
   </choice>
+  <!--BH_CHOICE-->
   <pkg-ref id="com.optibob.desktop" version="1.0.0">OptiBob-Live.pkg</pkg-ref>
   <pkg-ref id="com.optibob.plugin" version="1.0.0">OptiBob-Plugin.pkg</pkg-ref>
 </installer-gui-script>
 XML
+if [ -n "$BH" ]; then
+  /usr/bin/sed -i '' -e 's|<!--BH_LINE-->|<line choice="blackhole"/>|' \
+    -e 's|<!--BH_CHOICE-->|<choice id="blackhole" title="BlackHole 2ch (macOS before 14.4)" description="Audio driver that lets OptiBob Live take the sound your Mac plays on macOS older than 14.4. By Existential Audio, included with permission." selected="ob_vecchio()"><pkg-ref id="com.optibob.blackhole"/></choice><pkg-ref id="com.optibob.blackhole" version="1.0.0">BlackHole.pkg</pkg-ref>|' "$T/distribution.xml"
+fi
 productbuild --distribution "$T/distribution.xml" --package-path "$T" "$OUT/OptiBob-Mac.pkg" >/dev/null
 rm -rf "$T"
 echo ""; echo "PRONTO -> $OUT/OptiBob-Mac.pkg  (firma: ${ID:-ad hoc})"

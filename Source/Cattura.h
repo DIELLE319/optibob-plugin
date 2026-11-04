@@ -10,3 +10,6 @@ bool cattura_attiva();
 bool cattura_leggi(float* L, float* R, int n, double srUscita);
 // nome dell'uscita che il Mac sta usando (es. la scheda audio): OptiBob Live suona li'
 std::string cattura_uscitaMac();
+// macOS prima del 14.4: il Mac suona su BlackHole, OptiBob lo legge e suona sull'uscita vera (rimessa all'uscita)
+bool ponte_blackhole(std::string& uscitaVera);
+std::string ponte_nome();

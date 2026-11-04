@@ -10,8 +10,9 @@ static void collegaAudioDelMac() {
     static bool fatto = false;
     if (fatto || juce::StandalonePluginHolder::getInstance() == nullptr) return;
     fatto = true;
-    // l'uscita e' quella che usa il Mac (scheda audio, cuffie...), niente ingresso: il suono arriva dalla presa
-    {
+    std::string err;
+    if (cattura_avvia(err)) {
+        // l'audio del Mac arriva dalla presa: niente ingresso, si suona sull'uscita che usa il Mac
         auto& dm = juce::StandalonePluginHolder::getInstance()->deviceManager;
         auto setup = dm.getAudioDeviceSetup();
         const juce::String uscita (cattura_uscitaMac());
@@ -19,10 +20,30 @@ static void collegaAudioDelMac() {
         setup.inputDeviceName = {};
         setup.useDefaultOutputChannels = true;
         dm.setAudioDeviceSetup(setup, true);
+        return;
     }
-    std::string err;
-    if (! cattura_avvia(err))
-        juce::NativeMessageBox::showMessageBoxAsync(juce::MessageBoxIconType::WarningIcon, "OptiBob Live", juce::String(err));
+    // macOS prima del 14.4: ponte BlackHole (lo mette l'installer), tutto impostato da solo
+    if (juce::String(err).contains("14.4")) {
+        std::string vera;
+        if (ponte_blackhole(vera)) {
+            auto& dm = juce::StandalonePluginHolder::getInstance()->deviceManager;
+            auto setup = dm.getAudioDeviceSetup();
+            setup.inputDeviceName  = juce::String(ponte_nome());
+            setup.outputDeviceName = juce::String(vera);
+            setup.useDefaultInputChannels = setup.useDefaultOutputChannels = true;
+            dm.setAudioDeviceSetup(setup, true);
+            juce::StandalonePluginHolder::getInstance()->getMuteInputValue().setValue(false);
+            return;
+        }
+    }
+    juce::String testo (err);
+    if (testo.contains("14.4"))
+        testo = "On this macOS OptiBob Live can't take the Mac's sound by itself (it needs macOS 14.4 or later).\n\n"
+                "Do it this way:\n"
+                "1. Install BlackHole 2ch (free): existential.audio/blackhole\n"
+                "2. System Settings > Sound > Output: BlackHole 2ch\n"
+                "3. Here, click Options (top left): Input = BlackHole 2ch, Output = your speakers or sound card.";
+    juce::NativeMessageBox::showMessageBoxAsync(juce::MessageBoxIconType::WarningIcon, "OptiBob Live", testo);
 }
 #endif
 

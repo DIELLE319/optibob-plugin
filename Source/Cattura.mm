@@ -24,6 +24,7 @@ double gSrIn = 48000.0, gFr = 0.0;
 constexpr int kAn = 1 << 16;
 std::vector<float> gL(kAn), gR(kAn);
 std::atomic<int> gW { 0 }, gRd { 0 };
+AudioObjectID gRipristina = kAudioObjectUnknown;   // macOS vecchi: l'uscita vera da rimettere
 
 // arriva l'audio del Mac: nell'anello
 OSStatus letturaTap(AudioObjectID, const AudioTimeStamp*, const AudioBufferList* in,
@@ -44,6 +45,12 @@ OSStatus letturaTap(AudioObjectID, const AudioTimeStamp*, const AudioBufferList*
 // la presa ZITTISCE l'uscita normale: se resta appesa il Mac e' muto. Si smonta sempre.
 void smonta() {
     gOn.store(false);
+    if (gRipristina != kAudioObjectUnknown) {             // rimette l'uscita del Mac com'era
+        AudioObjectPropertyAddress ad = { kAudioHardwarePropertyDefaultOutputDevice,
+                                          kAudioObjectPropertyScopeGlobal, kAudioObjectPropertyElementMain };
+        AudioObjectSetPropertyData(kAudioObjectSystemObject, &ad, 0, nullptr, sizeof(gRipristina), &gRipristina);
+        gRipristina = kAudioObjectUnknown;
+    }
     if (gProc != nullptr && gAgg != kAudioObjectUnknown) {
         AudioDeviceStop(gAgg, gProc); AudioDeviceDestroyIOProcID(gAgg, gProc); gProc = nullptr; }
     if (gAgg != kAudioObjectUnknown) { AudioHardwareDestroyAggregateDevice(gAgg); gAgg = kAudioObjectUnknown; }
@@ -185,4 +192,53 @@ std::string cattura_uscitaMac() {
     std::string r = [(__bridge NSString*) nome UTF8String];
     CFRelease(nome);
     return r;
+}
+
+// ---------------------------------------------------------------- macOS prima del 14.4: ponte BlackHole
+namespace {
+std::string nomeDi(AudioObjectID d) {
+    CFStringRef n = nullptr; UInt32 sz = sizeof(n);
+    AudioObjectPropertyAddress a = { kAudioObjectPropertyName, kAudioObjectPropertyScopeGlobal, kAudioObjectPropertyElementMain };
+    if (AudioObjectGetPropertyData(d, &a, 0, nullptr, &sz, &n) != noErr || n == nullptr) return {};
+    std::string r = [(__bridge NSString*) n UTF8String]; CFRelease(n); return r;
+}
+bool haUscite(AudioObjectID d) {
+    UInt32 sz = 0;
+    AudioObjectPropertyAddress a = { kAudioDevicePropertyStreams, kAudioObjectPropertyScopeOutput, kAudioObjectPropertyElementMain };
+    return AudioObjectGetPropertyDataSize(d, &a, 0, nullptr, &sz) == noErr && sz > 0;
+}
+std::vector<AudioObjectID> tutti() {
+    UInt32 sz = 0;
+    AudioObjectPropertyAddress a = { kAudioHardwarePropertyDevices, kAudioObjectPropertyScopeGlobal, kAudioObjectPropertyElementMain };
+    if (AudioObjectGetPropertyDataSize(kAudioObjectSystemObject, &a, 0, nullptr, &sz) != noErr) return {};
+    std::vector<AudioObjectID> v(sz / sizeof(AudioObjectID));
+    AudioObjectGetPropertyData(kAudioObjectSystemObject, &a, 0, nullptr, &sz, v.data());
+    return v;
+}
+}
+
+bool ponte_blackhole(std::string& uscitaVera) {
+    AudioObjectID bh = kAudioObjectUnknown;
+    for (auto d : tutti()) if (nomeDi(d).rfind("BlackHole", 0) == 0 && haUscite(d)) { bh = d; break; }
+    if (bh == kAudioObjectUnknown) return false;
+    AudioObjectID vera = uscitaPredefinita();
+    if (vera == bh || vera == kAudioObjectUnknown) {        // gia' su BlackHole (es. dopo un crash): prende un'uscita vera
+        vera = kAudioObjectUnknown;
+        for (auto d : tutti()) {
+            const auto n = nomeDi(d);
+            if (d != bh && haUscite(d) && n.rfind("BlackHole", 0) != 0 && n.find("OptiBob") == std::string::npos) { vera = d; break; }
+        }
+        if (vera == kAudioObjectUnknown) return false;
+    }
+    uscitaVera = nomeDi(vera);
+    gRipristina = vera;
+    armaLeDifese();
+    AudioObjectPropertyAddress ad = { kAudioHardwarePropertyDefaultOutputDevice,
+                                      kAudioObjectPropertyScopeGlobal, kAudioObjectPropertyElementMain };
+    AudioObjectSetPropertyData(kAudioObjectSystemObject, &ad, 0, nullptr, sizeof(bh), &bh);
+    return true;
+}
+std::string ponte_nome() {
+    for (auto d : tutti()) { const auto n = nomeDi(d); if (n.rfind("BlackHole", 0) == 0 && haUscite(d)) return n; }
+    return {};
 }
