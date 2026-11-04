@@ -74,7 +74,6 @@ jobs:
         with: { name: OptiBob-Windows, path: rilascio }
       - uses: actions/download-artifact@v4
         with: { name: OptiBob-macOS, path: rilascio }
-      - run: cp OptiBobPlayer.zip rilascio/ && ls -la rilascio
       - name: Pubblica i download (www.optibob.com punta a releases/latest)
         uses: softprops/action-gh-release@v2
         with:
@@ -87,4 +86,3 @@ jobs:
             OptiBobPlayer.zip — OptiBob Player for Mac (free)
           files: |
             rilascio/OptiBob-Windows-Setup.exe
-            rilascio/OptiBobPlayer.zip

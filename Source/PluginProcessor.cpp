@@ -3,7 +3,7 @@
 #include "PluginEditor.h"
 #include "PresetDiFabbrica.h"
 #include "Licenza.h"
-#if JUCE_MAC
+#if JUCE_MAC || JUCE_WINDOWS
  #include "Cattura.h"
 #endif
 
@@ -108,7 +108,7 @@ void UnoProcessor::processBlock(juce::AudioBuffer<float>& buf, juce::MidiBuffer&
 
     float* L = buf.getWritePointer(0);
     float* R = buf.getNumChannels() > 1 ? buf.getWritePointer(1) : L;
-   #if JUCE_MAC
+   #if JUCE_MAC || JUCE_WINDOWS
     if (R != L) cattura_leggi(L, R, n, getSampleRate());   // OptiBob Live: l'audio del Mac al posto dell'ingresso
    #endif
 

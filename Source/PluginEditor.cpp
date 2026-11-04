@@ -2,7 +2,7 @@
 #include "Licenza.h"
 #include "BinaryData.h"
 
-#if JUCE_MAC && JucePlugin_Build_Standalone
+#if (JUCE_MAC || JUCE_WINDOWS) && JucePlugin_Build_Standalone
  #include <juce_audio_utils/juce_audio_utils.h>
  #include <juce_audio_plugin_client/Standalone/juce_StandaloneFilterWindow.h>
  #include "Cattura.h"
@@ -23,6 +23,7 @@ static void collegaAudioDelMac() {
         dm.setAudioDeviceSetup(setup, true);
         return;
     }
+   #if JUCE_MAC
     // macOS prima del 14.4: ponte BlackHole (lo mette l'installer), tutto impostato da solo
     if (juce::String(err).contains("14.4")) {
         std::string vera;
@@ -37,6 +38,7 @@ static void collegaAudioDelMac() {
             return;
         }
     }
+   #endif
     juce::String testo (err);
     if (testo.contains("14.4"))
         testo = "On this macOS OptiBob Live can't take the Mac's sound by itself (it needs macOS 14.4 or later).\n\n"
@@ -139,7 +141,7 @@ UnoEditor::UnoEditor(UnoProcessor& p)
     setResizable(true, true);
     setResizeLimits(820, 620, 1920, 1400);
     startTimerHz(15);
-   #if JUCE_MAC && JucePlugin_Build_Standalone
+   #if (JUCE_MAC || JUCE_WINDOWS) && JucePlugin_Build_Standalone
     if (juce::JUCEApplicationBase::isStandaloneApp())
         juce::Timer::callAfterDelay(700, [] { collegaAudioDelMac(); });
    #endif
@@ -174,13 +176,13 @@ void UnoEditor::timerCallback() {
            << ",\"ok\":" << (ok ? 1 : 0) << ",\"msg\":" << juce::JSON::toString(msg) << "}";
     }
     js << ",\"_io\":[" << juce::String(proc.inDb.load(), 1) << "," << juce::String(proc.outDb.load(), 1) << "]";
-   #if JUCE_MAC && JucePlugin_Build_Standalone
+   #if (JUCE_MAC || JUCE_WINDOWS) && JucePlugin_Build_Standalone
     if (auto* h = juce::StandalonePluginHolder::getInstance())
         if (auto* d = h->deviceManager.getCurrentAudioDevice()) {
             const auto ch = d->getActiveInputChannels();
             juce::String c;
             for (int i = 0; i < ch.getHighestBit() + 1; ++i) if (ch[i]) c << (c.isEmpty() ? "" : "+") << (i + 1);
-            juce::String info = (cattura_attiva() ? juce::String("IN: Mac sound") : "IN: " + c)
+            juce::String info = (cattura_attiva() ? juce::String(JUCE_MAC ? "IN: Mac sound" : "IN: PC sound") : "IN: " + c)
                               + "  |  OUT: " + d->getName()
                               + "  |  " + juce::String((int) d->getCurrentSampleRate()) + " Hz";
             js << ",\"_info\":\"" << info.replace("\"", "'") << "\"";

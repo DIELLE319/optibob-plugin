@@ -46,6 +46,8 @@ target_include_directories(OptiBob PRIVATE Source Engine)
 
 if(APPLE)
     target_sources(OptiBob PRIVATE Source/Cattura.mm)
+elseif(WIN32)
+    target_sources(OptiBob PRIVATE Source/Cattura_win.cpp)
 endif()
 
 target_compile_definitions(OptiBob PUBLIC
