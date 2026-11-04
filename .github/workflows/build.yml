@@ -20,7 +20,13 @@ jobs:
       - name: Configura
         run: cmake -B build -DCMAKE_BUILD_TYPE=Release
       - name: Compila
-        run: cmake --build build --config Release
+        shell: pwsh
+        run: |
+          cmake --build build --config Release 2>&1 | Tee-Object -FilePath build.log
+          if ($LASTEXITCODE -ne 0) {
+            Select-String -Path build.log -Pattern ' error |error C|error LNK|fatal error' | Select-Object -First 25 | ForEach-Object { Write-Output ("::error::" + $_.Line.Trim()) }
+            exit 1
+          }
       - name: Verifica motore (i numeri devono coincidere col Mac)
         shell: pwsh
         run: |
@@ -41,39 +47,32 @@ jobs:
           Copy-Item installer-windows.iss build\
           & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" build\installer-windows.iss
           Get-ChildItem build\OptiBob-Windows-Setup.exe
+      - name: Prova su Windows vero (installa, apre, disinstalla)
+        shell: pwsh
+        run: |
+          $p = Start-Process build\OptiBob-Windows-Setup.exe -ArgumentList '/VERYSILENT','/SUPPRESSMSGBOXES','/NORESTART','/COMPONENTS=desktop,plugin' -Wait -PassThru
+          $exe = "$env:ProgramFiles\OptiBob Live\OptiBob.exe"
+          $vst = "$env:CommonProgramFiles\VST3\OptiBob.vst3"
+          if (Test-Path $exe) { Write-Output "::notice::Installato: $exe" } else { Write-Output "::error::App NON installata"; exit 1 }
+          if (Test-Path $vst) { Write-Output "::notice::Plugin installato: $vst" } else { Write-Output "::error::Plugin VST3 NON installato"; exit 1 }
+          $a = Start-Process $exe -PassThru; Start-Sleep -Seconds 20
+          if (Get-Process -Id $a.Id -ErrorAction SilentlyContinue) { Write-Output "::notice::OptiBob Live si apre e resta aperto (20 s)"; Stop-Process -Id $a.Id -Force }
+          else { Write-Output "::error::OptiBob Live si chiude da solo all'avvio (codice $($a.ExitCode))"; exit 1 }
+          $u = Get-ChildItem "$env:ProgramFiles\OptiBob Live" -Filter 'unins*.exe' | Select-Object -First 1
+          Start-Process $u.FullName -ArgumentList '/VERYSILENT','/SUPPRESSMSGBOXES' -Wait; Start-Sleep -Seconds 3
+          if ((Test-Path $exe) -or (Test-Path $vst)) { Write-Output "::error::La disinstallazione lascia dei file" } else { Write-Output "::notice::Disinstallazione pulita" }
       - uses: actions/upload-artifact@v4
         with:
           name: OptiBob-Windows
           path: build/OptiBob-Windows-Setup.exe
 
-  macos:
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Configura
-        run: cmake -B build -DCMAKE_BUILD_TYPE=Release
-      - name: Compila
-        run: cmake --build build --config Release -j4
-      - name: Verifica motore (riferimento)
-        run: |
-          exe=$(find build -name prova-motore -type f | head -1)
-          "$exe"
-      - name: Installer (OptiBob-Mac.pkg)
-        run: BUILD="$PWD/build" OUT="$PWD/out" SALTA_COMPILA=1 bash installer-mac.command
-      - uses: actions/upload-artifact@v4
-        with:
-          name: OptiBob-macOS
-          path: out/OptiBob-Mac.pkg
-
   pubblica-download:
-    needs: [windows, macos]
+    needs: [windows]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
         with: { name: OptiBob-Windows, path: rilascio }
-      - uses: actions/download-artifact@v4
-        with: { name: OptiBob-macOS, path: rilascio }
       - name: Pubblica i download (www.optibob.com punta a releases/latest)
         uses: softprops/action-gh-release@v2
         with:

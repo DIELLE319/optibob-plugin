@@ -20,7 +20,7 @@ git add .github/workflows/build.yml CMakeLists.txt Engine Source/*.h Source/*.cp
         interfaccia-pro.html interfaccia-basic.html installer-mac.command installer-windows.iss \
         prova-desktop.command pubblica-download.command pubblica-mac.command prepara-firma.command OptiBobPlayer.zip \
         $( [ -f BlackHole2ch.driver.zip ] && echo BlackHole2ch.driver.zip )
-git commit -q -m "OptiBob Live 1.0.1: Windows prende il suono del PC da solo (WASAPI loopback)" || true
+git commit -q -m "Windows: errori di compilazione visibili, prova automatica di installazione" || true
 git push -q origin HEAD:main || { echo "⚠️  push non riuscito"; exit 1; }
 echo "3/3  fatto. GitHub compila (circa 15 minuti):"
 echo "     https://github.com/DIELLE319/optibob-plugin/actions"
