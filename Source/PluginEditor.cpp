@@ -1,6 +1,11 @@
 #include "PluginEditor.h"
 #include "Licenza.h"
 #include "BinaryData.h"
+#if JUCE_MAC
+ #define OB_IN_SISTEMA "IN: Mac sound"
+#else
+ #define OB_IN_SISTEMA "IN: PC sound"
+#endif
 
 #if (JUCE_MAC || JUCE_WINDOWS) && JucePlugin_Build_Standalone
  #include <juce_audio_utils/juce_audio_utils.h>
@@ -182,7 +187,7 @@ void UnoEditor::timerCallback() {
             const auto ch = d->getActiveInputChannels();
             juce::String c;
             for (int i = 0; i < ch.getHighestBit() + 1; ++i) if (ch[i]) c << (c.isEmpty() ? "" : "+") << (i + 1);
-            juce::String info = (cattura_attiva() ? juce::String(JUCE_MAC ? "IN: Mac sound" : "IN: PC sound") : "IN: " + c)
+            juce::String info = (cattura_attiva() ? juce::String(OB_IN_SISTEMA) : "IN: " + c)
                               + "  |  OUT: " + d->getName()
                               + "  |  " + juce::String((int) d->getCurrentSampleRate()) + " Hz";
             js << ",\"_info\":\"" << info.replace("\"", "'") << "\"";
